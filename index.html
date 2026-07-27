@@ -1,0 +1,2312 @@
+<!DOCTYPE html>
+<html lang="vi">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <meta content="Vũ Xuân Kiên — Xuankiendev. JavaScript, Bot, Automation và những thử nghiệm số có cá tính." name="description"/>
+  <meta content="#090511" name="theme-color"/>
+  <title>
+   Xuankiendev — Personal Brand
+  </title>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+   :root {
+  --bg:#090511;
+  --surface:#171021;
+  --surface2:#21152d;
+  --text:#fff;
+  --muted:#b9accb;
+  --pink:#ff3da6;
+  --orange:#ff7a1a;
+  --yellow:#ffe044;
+  --cyan:#31e7ff;
+  --violet:#a766ff;
+  --green:#56f0a8;
+  --line:rgba(255,255,255,.14);
+  --max:1200px;
+  --r:28px
+}
+
+* {
+  box-sizing:border-box
+}
+
+html {
+  scroll-behavior:smooth
+}
+
+body {
+  margin:0;
+  min-height:100vh;
+  overflow-x:hidden;
+  color:var(--text);
+  background:radial-gradient(circle at 12% 7%,rgba(255,61,166,.17),transparent 25%),radial-gradient(circle at 87% 10%,rgba(49,231,255,.13),transparent 24%),linear-gradient(180deg,#08040e,#100719 52%,#08040e);
+  font-family:"Be Vietnam Pro",system-ui,sans-serif;
+  line-height:1.65
+}
+
+a {
+  color:inherit;
+  text-decoration:none
+}
+
+img {
+  display:block;
+  max-width:100%
+}
+
+button {
+  font:inherit
+}
+
+#fx {
+  position:fixed;
+  inset:0;
+  z-index:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  opacity:.68
+}
+
+.orb {
+  position:fixed;
+  z-index:0;
+  width:36vw;
+  max-width:500px;
+  aspect-ratio:1;
+  border-radius:50%;
+  pointer-events:none;
+  filter:blur(52px);
+  opacity:.23;
+  will-change:transform
+}
+
+.orb.a {
+  left:-12vw;
+  top:8vh;
+  background:var(--pink);
+  animation:da 12s ease-in-out infinite alternate
+}
+
+.orb.b {
+  right:-13vw;
+  top:28vh;
+  background:var(--cyan);
+  animation:db 15s ease-in-out infinite alternate
+}
+
+@keyframes da {
+  to {
+    transform:translate3d(10vw,12vh,0) scale(1.08)
+  }
+}
+
+@keyframes db {
+  to {
+    transform:translate3d(-9vw,10vh,0) scale(.92)
+  }
+}
+
+.grid {
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:.07;
+  background-image:linear-gradient(rgba(255,255,255,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.16) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:linear-gradient(to bottom,#000,transparent 86%)
+}
+
+.container {
+  position:relative;
+  z-index:2;
+  width:min(calc(100% - 36px),var(--max));
+  margin:auto
+}
+
+.header {
+  position:sticky;
+  top:10px;
+  z-index:30;
+  padding-top:10px
+}
+
+.nav {
+  min-height:68px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:9px 10px 9px 16px;
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:999px;
+  background:rgba(11,6,18,.88);
+  backdrop-filter:blur(12px);
+  box-shadow:0 16px 42px rgba(0,0,0,.26)
+}
+
+.brand {
+  display:flex;
+  align-items:center;
+  gap:11px;
+  font-weight:900;
+  letter-spacing:-.04em
+}
+
+.mark {
+  width:40px;
+  height:40px;
+  display:grid;
+  place-items:center;
+  border-radius:14px;
+  color:#0b0611;
+  background:linear-gradient(135deg,var(--yellow),var(--pink),var(--cyan));
+  box-shadow:0 0 26px rgba(255,61,166,.3);
+  animation:lf 3s ease-in-out infinite
+}
+
+@keyframes lf {
+  50% {
+    transform:translateY(-3px) rotate(-3deg)
+  }
+}
+
+.navlinks {
+  display:flex;
+  align-items:center;
+  gap:4px
+}
+
+.navlinks a,.toggle {
+  padding:9px 12px;
+  border:0;
+  border-radius:999px;
+  color:var(--muted);
+  background:transparent;
+  font-size:13px;
+  font-weight:750;
+  cursor:pointer;
+  transition:.2s
+}
+
+.navlinks a:hover,.toggle:hover {
+  color:#fff;
+  background:rgba(255,255,255,.08)
+}
+
+.navcta {
+  color:#0b0611!important;
+  background:linear-gradient(135deg,var(--yellow),var(--orange),var(--pink))!important
+}
+
+.hero {
+  min-height:88vh;
+  display:grid;
+  grid-template-columns:1.03fr .97fr;
+  align-items:center;
+  gap:62px;
+  padding:82px 0 68px
+}
+
+.status {
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  padding:8px 12px;
+  border:1px solid rgba(86,240,168,.28);
+  border-radius:999px;
+  color:#ceffe8;
+  background:rgba(86,240,168,.075);
+  font-size:13px;
+  font-weight:800
+}
+
+.dot {
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--green);
+  animation:ping 1.9s infinite
+}
+
+@keyframes ping {
+  70% {
+    box-shadow:0 0 0 10px rgba(86,240,168,0)
+  }
+}
+
+h1 {
+  margin:22px 0 18px;
+  font-size:clamp(54px,8vw,104px);
+  line-height:.92;
+  letter-spacing:-.078em
+}
+
+.name {
+  display:block
+}
+
+.neon {
+  display:block;
+  color:transparent;
+  background:linear-gradient(90deg,var(--pink),var(--yellow),var(--cyan),var(--violet),var(--pink));
+  background-size:240% 100%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  animation:flow 6s linear infinite;
+  filter:drop-shadow(0 0 18px rgba(255,61,166,.16))
+}
+
+@keyframes flow {
+  to {
+    background-position:240% 50%
+  }
+}
+
+.typing {
+  min-height:34px;
+  margin-bottom:14px;
+  color:#f2e7fb;
+  font-size:clamp(18px,2vw,22px);
+  font-weight:800
+}
+
+.typing:after {
+  content:"";
+  display:inline-block;
+  width:2px;
+  height:1.1em;
+  margin-left:6px;
+  vertical-align:-.12em;
+  background:var(--yellow);
+  animation:blink .9s step-end infinite
+}
+
+@keyframes blink {
+  50% {
+    opacity:0
+  }
+}
+
+.lead {
+  max-width:740px;
+  margin:0 0 28px;
+  color:var(--muted);
+  font-size:18px
+}
+
+.actions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:11px;
+  margin-bottom:24px
+}
+
+.btn {
+  min-height:52px;
+  padding:0 19px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  border:1px solid transparent;
+  border-radius:16px;
+  font-weight:900;
+  transition:.2s
+}
+
+.btn:hover {
+  transform:translateY(-3px)
+}
+
+.mainbtn {
+  color:#0b0611;
+  background:linear-gradient(120deg,var(--yellow),var(--orange),var(--pink));
+  box-shadow:0 16px 36px rgba(255,91,46,.22)
+}
+
+.ghost {
+  border-color:var(--line);
+  background:rgba(255,255,255,.06)
+}
+
+.chips {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px
+}
+
+.chip {
+  padding:6px 10px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:#eadff4;
+  background:rgba(255,255,255,.035);
+  font-size:12px;
+  font-weight:750
+}
+
+.readmeshell {
+  padding:1px;
+  border-radius:30px;
+  background:linear-gradient(135deg,var(--pink),var(--yellow),var(--cyan),var(--violet));
+  box-shadow:0 30px 80px rgba(0,0,0,.4),0 0 52px rgba(255,61,166,.12);
+  transform-style:preserve-3d
+}
+
+.readme {
+  position:relative;
+  min-height:565px;
+  padding:28px;
+  overflow:hidden;
+  border-radius:29px;
+  background:linear-gradient(145deg,rgba(255,255,255,.045),transparent 40%),#100918
+}
+
+.readme:after {
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:repeating-linear-gradient(180deg,transparent 0,transparent 5px,rgba(255,255,255,.018) 6px)
+}
+
+.rhead {
+  position:relative;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding-bottom:18px;
+  border-bottom:1px solid var(--line)
+}
+
+.avatar {
+  width:58px;
+  height:58px;
+  flex:0 0 auto;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid rgba(255,255,255,.24);
+  box-shadow:0 0 24px rgba(49,231,255,.16);
+  background:var(--surface2)
+}
+
+.rid strong {
+  display:block;
+  font-size:18px;
+  letter-spacing:-.025em
+}
+
+.rid span {
+  color:var(--muted);
+  font-size:13px
+}
+
+.ghbtn {
+  margin-left:auto;
+  padding:8px 11px;
+  border:1px solid var(--line);
+  border-radius:9px;
+  color:#e9def4;
+  background:#21152d;
+  font-size:12px;
+  font-weight:800
+}
+
+.md {
+  position:relative;
+  z-index:1;
+  margin-top:22px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
+}
+
+.mdtitle {
+  margin-bottom:8px;
+  color:#fff;
+  font-size:25px;
+  font-weight:800;
+  letter-spacing:-.04em
+}
+
+.hash {
+  color:var(--pink)
+}
+
+.mdline {
+  color:#c9bdd6;
+  font-size:13px;
+  line-height:1.8
+}
+
+.key {
+  color:var(--cyan)
+}
+
+.value {
+  color:var(--yellow)
+}
+
+.ghstats {
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+  margin-top:20px
+}
+
+.ghstat {
+  padding:13px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#181020
+}
+
+.ghstat b {
+  display:block;
+  font-size:22px;
+  line-height:1.1
+}
+
+.ghstat span {
+  color:var(--muted);
+  font-size:11px
+}
+
+.activity {
+  position:relative;
+  z-index:1;
+  margin-top:20px;
+  padding:15px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:#0c0811
+}
+
+.ahead {
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:10px;
+  color:#d7cce2;
+  font-size:11px;
+  font-weight:750
+}
+
+.agrid {
+  display:grid;
+  grid-template-columns:repeat(14,1fr);
+  gap:4px
+}
+
+.cell {
+  aspect-ratio:1;
+  border-radius:3px;
+  background:#25162e;
+  transition:.15s
+}
+
+.cell:hover {
+  transform:scale(1.3)
+}
+
+.l1 {
+  background:#49235b
+}
+
+.l2 {
+  background:#73308c
+}
+
+.l3 {
+  background:#ae43c2;
+  box-shadow:0 0 8px rgba(174,67,194,.35)
+}
+
+.l4 {
+  background:#31e7ff;
+  box-shadow:0 0 10px rgba(49,231,255,.4)
+}
+
+.rfoot {
+  position:relative;
+  z-index:1;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:16px
+}
+
+.rfoot span {
+  padding:5px 8px;
+  border-radius:6px;
+  color:#f1e9f8;
+  background:#21142b;
+  font-size:10px;
+  font-weight:750
+}
+
+.marquee {
+  position:relative;
+  z-index:2;
+  overflow:hidden;
+  border-block:1px solid rgba(255,255,255,.09);
+  background:linear-gradient(90deg,rgba(255,61,166,.08),rgba(49,231,255,.055),rgba(255,122,26,.08))
+}
+
+.track {
+  display:flex;
+  width:max-content;
+  gap:28px;
+  padding:13px 0;
+  animation:mq 24s linear infinite
+}
+
+.track span {
+  display:flex;
+  align-items:center;
+  gap:28px;
+  color:#efe5f7;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.12em;
+  text-transform:uppercase
+}
+
+.track span:after {
+  content:"✦";
+  color:var(--yellow)
+}
+
+@keyframes mq {
+  to {
+    transform:translateX(-50%)
+  }
+}
+
+section {
+  padding:94px 0
+}
+
+.shead {
+  display:grid;
+  grid-template-columns:.8fr 1.2fr;
+  gap:28px;
+  align-items:end;
+  margin-bottom:34px
+}
+
+.kicker {
+  color:var(--yellow);
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.15em;
+  text-transform:uppercase
+}
+
+h2 {
+  margin:9px 0 0;
+  font-size:clamp(38px,5.3vw,64px);
+  line-height:1.06;
+  letter-spacing:-.055em
+}
+
+.scopy {
+  margin:0;
+  max-width:720px;
+  color:var(--muted);
+  font-size:17px
+}
+
+.card {
+  border:1px solid var(--line);
+  border-radius:var(--r);
+  background:radial-gradient(circle at 90% 5%,rgba(255,61,166,.09),transparent 25%),linear-gradient(145deg,#1a1024,#110a18);
+  box-shadow:0 24px 64px rgba(0,0,0,.22)
+}
+
+.manifesto {
+  padding:clamp(28px,5vw,52px);
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:34px;
+  align-items:center
+}
+
+.mbig {
+  margin:0;
+  font-size:clamp(25px,3.4vw,42px);
+  line-height:1.36;
+  letter-spacing:-.04em
+}
+
+.mbig strong {
+  color:transparent;
+  background:linear-gradient(90deg,var(--yellow),var(--pink),var(--cyan));
+  -webkit-background-clip:text;
+  background-clip:text
+}
+
+.mlist {
+  display:grid;
+  gap:10px
+}
+
+.mitem {
+  padding:14px 15px;
+  display:grid;
+  grid-template-columns:32px 1fr;
+  gap:12px;
+  border:1px solid rgba(255,255,255,.11);
+  border-radius:14px;
+  background:rgba(255,255,255,.035)
+}
+
+.mitem b {
+  color:var(--cyan)
+}
+
+.mitem span {
+  color:var(--muted);
+  font-size:14px
+}
+
+.repogrid {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px
+}
+
+.repo {
+  position:relative;
+  min-height:250px;
+  padding:24px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:linear-gradient(145deg,#1a1024,#100917);
+  transition:.2s
+}
+
+.repo:hover {
+  transform:translateY(-5px);
+  border-color:rgba(49,231,255,.34)
+}
+
+.repo:after {
+  content:"";
+  position:absolute;
+  right:-50px;
+  bottom:-70px;
+  width:170px;
+  aspect-ratio:1;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(255,61,166,.18),transparent 70%)
+}
+
+.repohead {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:22px
+}
+
+.repoicon {
+  width:38px;
+  height:38px;
+  display:grid;
+  place-items:center;
+  border-radius:12px;
+  color:#0a0610;
+  background:linear-gradient(135deg,var(--yellow),var(--pink),var(--cyan));
+  font-weight:900
+}
+
+.reponame {
+  font-size:18px;
+  font-weight:850;
+  letter-spacing:-.03em
+}
+
+.repo p {
+  margin:0;
+  color:var(--muted);
+  font-size:14px
+}
+
+.repometa {
+  position:absolute;
+  left:24px;
+  right:24px;
+  bottom:22px;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  gap:10px;
+  color:#d9cee5;
+  font-size:11px
+}
+
+.lang {
+  display:inline-flex;
+  align-items:center;
+  gap:7px
+}
+
+.langdot {
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--yellow);
+  box-shadow:0 0 9px rgba(255,224,68,.3)
+}
+
+.brandstack {
+  display:grid;
+  grid-template-columns:1.08fr .92fr;
+  gap:18px
+}
+
+.brandpanel {
+  padding:30px
+}
+
+.brandpanel h3 {
+  margin:0 0 12px;
+  font-size:28px;
+  letter-spacing:-.04em
+}
+
+.brandpanel p {
+  margin:0;
+  color:var(--muted)
+}
+
+.tape {
+  margin-top:22px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px
+}
+
+.tape span {
+  padding:7px 10px;
+  border-radius:8px;
+  color:#0d0714;
+  background:linear-gradient(135deg,var(--yellow),var(--orange));
+  font-size:11px;
+  font-weight:850
+}
+
+.terminal {
+  padding:28px;
+  background:radial-gradient(circle at 90% 10%,rgba(49,231,255,.09),transparent 25%),#0a0710;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:13px;
+  line-height:1.9
+}
+
+.tbar {
+  display:flex;
+  gap:6px;
+  margin-bottom:24px
+}
+
+.tbar i {
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--pink)
+}
+
+.tbar i:nth-child(2) {
+  background:var(--yellow)
+}
+
+.tbar i:nth-child(3) {
+  background:var(--green)
+}
+
+.cyan {
+  color:var(--cyan)
+}
+
+.pink {
+  color:var(--pink)
+}
+
+.yellow {
+  color:var(--yellow)
+}
+
+.green {
+  color:var(--green)
+}
+
+.muted {
+  color:#70667b
+}
+
+.contact {
+  padding:clamp(36px,6vw,72px);
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:30px;
+  align-items:center;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:34px;
+  color:#0b0611;
+  background:linear-gradient(120deg,var(--yellow),var(--orange),var(--pink),var(--cyan));
+  background-size:190% 190%;
+  animation:cf 9s ease-in-out infinite;
+  box-shadow:0 30px 90px rgba(255,61,166,.16)
+}
+
+@keyframes cf {
+  50% {
+    background-position:100% 50%
+  }
+}
+
+.contact h2 {
+  margin-top:0
+}
+
+.contact p {
+  margin:0;
+  color:rgba(11,6,17,.72)
+}
+
+.cactions {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  gap:10px
+}
+
+.contact .mainbtn {
+  color:#fff;
+  background:#0b0611;
+  box-shadow:0 15px 35px rgba(11,6,17,.24)
+}
+
+.contact .ghost {
+  color:#0b0611;
+  border-color:rgba(11,6,17,.2);
+  background:rgba(255,255,255,.22)
+}
+
+footer {
+  position:relative;
+  z-index:2;
+  padding:32px 0 46px;
+  color:#8f819f;
+  font-size:13px
+}
+
+.footer {
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  padding-top:24px;
+  border-top:1px solid rgba(255,255,255,.1)
+}
+
+.reveal {
+  opacity:0;
+  transform:translateY(24px);
+  transition:.7s
+}
+
+.reveal.show {
+  opacity:1;
+  transform:none
+}
+
+body.lite #fx,body.lite .orb {
+  display:none
+}
+
+body.lite .track,body.lite .neon,body.lite .contact,body.lite .mark,body.lite .dot {
+  animation:none
+}
+
+@media(max-width:940px) {
+  .hero,.shead,.manifesto,.brandstack,.contact {
+    grid-template-columns:1fr
+  }
+  .hero {
+    gap:38px
+  }
+  .repogrid {
+    grid-template-columns:1fr
+  }
+  .cactions {
+    justify-content:flex-start
+  }
+}
+
+@media(max-width:650px) {
+  .container {
+    width:min(calc(100% - 22px),var(--max))
+  }
+  .header {
+    top:7px;
+    padding-top:7px
+  }
+  .brand span:last-child,.navlinks a:not(.navcta) {
+    display:none
+  }
+  .toggle {
+    padding-inline:9px
+  }
+  .hero {
+    min-height:auto;
+    padding:66px 0 44px
+  }
+  h1 {
+    font-size:clamp(50px,16vw,75px)
+  }
+  .readme {
+    min-height:520px;
+    padding:21px
+  }
+  .avatar {
+    width:50px;
+    height:50px
+  }
+  .ghbtn {
+    display:none
+  }
+  .agrid {
+    gap:3px
+  }
+  section {
+    padding:72px 0
+  }
+  .manifesto {
+    padding:24px
+  }
+  .footer {
+    flex-direction:column
+  }
+}
+
+@media(pointer:coarse),(max-width:768px) {
+  #fx {
+    opacity:.4
+  }
+  .orb {
+    display:none
+  }
+  .readmeshell {
+    box-shadow:0 22px 55px rgba(0,0,0,.35)
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  *,*:before,*:after {
+    scroll-behavior:auto!important;
+    animation:none!important;
+    transition-duration:.01ms!important
+  }
+  #fx,.orb {
+    display:none
+  }
+  .reveal {
+    opacity:1;
+    transform:none
+  }
+}
+  </style>
+ </head>
+ <body>
+  <canvas aria-hidden="true" id="fx">
+  </canvas>
+  <div class="orb a">
+  </div>
+  <div class="orb b">
+  </div>
+  <div class="grid">
+  </div>
+  <header class="header container">
+   <div class="nav">
+    <a class="brand" href="#top">
+     <span class="mark">
+      K
+     </span>
+     <span>
+      Xuankiendev
+     </span>
+    </a>
+    <nav class="navlinks">
+     <a href="#identity">
+      Identity
+     </a>
+     <a href="#github">
+      GitHub
+     </a>
+     <a href="#project">
+      Projects
+     </a>
+     <button class="toggle" id="toggle" type="button">
+      Lite FX
+     </button>
+     <a class="navcta" href="https://zalo.me/0913288691" rel="noopener" target="_blank">
+      Zalo
+     </a>
+    </nav>
+   </div>
+  </header>
+  <main id="top">
+   <section class="hero container">
+    <div>
+     <span class="status">
+      <span class="dot">
+      </span>
+      Personal brand in progress
+     </span>
+     <h1>
+      <span class="name">
+       Vũ Xuân Kiên
+      </span>
+      <span class="neon">
+       Xuankiendev.
+      </span>
+     </h1>
+     <div class="typing" data-typing="">
+     </div>
+     <p class="lead">
+      Đây không phải CV xin việc. Đây là nơi tôi gom lại code, bot, thử nghiệm và những thứ mang dấu ấn của riêng mình trên Internet.
+     </p>
+     <div class="actions">
+      <a class="btn mainbtn" href="https://zalo.me/0913288691" rel="noopener" target="_blank">
+       Kết nối qua Zalo ↗
+      </a>
+      <a class="btn ghost" href="https://github.com/Xuankiendev" rel="noopener" target="_blank">
+       GitHub @Xuankiendev ↗
+      </a>
+     </div>
+     <div class="chips">
+      <span class="chip">
+       JavaScript
+      </span>
+      <span class="chip">
+       Node.js
+      </span>
+      <span class="chip">
+       Bot
+      </span>
+      <span class="chip">
+       Automation
+      </span>
+      <span class="chip">
+       Digital Experiments
+      </span>
+     </div>
+    </div>
+    <div class="readmeshell" id="shell">
+     <article class="readme">
+      <header class="rhead">
+       <img alt="GitHub avatar Xuankiendev" class="avatar" id="avatar" src="https://avatars.githubusercontent.com/Xuankiendev"/>
+       <div class="rid">
+        <strong id="ghname">
+         Vũ Xuân Kiên
+        </strong>
+        <span>
+         @Xuankiendev · Hải Phòng, Việt Nam
+        </span>
+       </div>
+       <a class="ghbtn" href="https://github.com/Xuankiendev" rel="noopener" target="_blank">
+        View GitHub ↗
+       </a>
+      </header>
+      <div class="md">
+       <div class="mdtitle">
+        <span class="hash">
+         #
+        </span>
+        Hi, I'm Xuankiendev 👋
+       </div>
+       <div class="mdline">
+        <span class="key">
+         const
+        </span>
+        identity =
+        <span class="value">
+         "developer + builder + internet person"
+        </span>
+        ;
+       </div>
+       <div class="mdline">
+        <span class="key">
+         currentlyBuilding
+        </span>
+        :
+        <span class="value">
+         Bot Zalo unofficial
+        </span>
+       </div>
+       <div class="mdline">
+        <span class="key">
+         mainContact
+        </span>
+        :
+        <span class="value">
+         zalo.me/0913288691
+        </span>
+       </div>
+       <div class="mdline">
+        <span class="key">
+         motto
+        </span>
+        :
+        <span class="value">
+         build → test → share → repeat
+        </span>
+       </div>
+      </div>
+      <div class="ghstats">
+       <div class="ghstat">
+        <b id="repos">
+         41
+        </b>
+        <span>
+         public repos
+        </span>
+       </div>
+       <div class="ghstat">
+        <b id="followers">
+         6
+        </b>
+        <span>
+         followers
+        </span>
+       </div>
+       <div class="ghstat">
+        <b id="following">
+         2
+        </b>
+        <span>
+         following
+        </span>
+       </div>
+      </div>
+      <div class="activity">
+       <div class="ahead">
+        <span>
+         GitHub-style activity
+        </span>
+        <span id="alabel">
+         building in public
+        </span>
+       </div>
+       <div class="agrid" id="agrid">
+       </div>
+      </div>
+      <div class="rfoot">
+       <span>
+        JavaScript
+       </span>
+       <span>
+        HTML/CSS
+       </span>
+       <span>
+        Python
+       </span>
+       <span>
+        Cloudflare
+       </span>
+       <span>
+        Vercel
+       </span>
+      </div>
+     </article>
+    </div>
+   </section>
+   <div class="marquee">
+    <div class="track">
+     <span>
+      Xuankiendev
+     </span>
+     <span>
+      Bot Zalo Unofficial
+     </span>
+     <span>
+      JavaScript
+     </span>
+     <span>
+      Build In Public
+     </span>
+     <span>
+      Personal Brand
+     </span>
+     <span>
+      Xuankiendev
+     </span>
+     <span>
+      Bot Zalo Unofficial
+     </span>
+     <span>
+      JavaScript
+     </span>
+     <span>
+      Build In Public
+     </span>
+     <span>
+      Personal Brand
+     </span>
+    </div>
+   </div>
+   <section class="container reveal" id="identity">
+    <div class="shead">
+     <div>
+      <span class="kicker">
+       01 / Identity
+      </span>
+      <h2>
+       Một góc Internet mang tên Xuankiendev.
+      </h2>
+     </div>
+     <p class="scopy">
+      Portfolio này được xây như một trang profile mở rộng: có tinh thần GitHub README, có project, có dấu ấn thị giác và có nơi để người khác nhớ tới mình.
+     </p>
+    </div>
+    <article class="card manifesto">
+     <p class="mbig">
+      Tôi không cố trở thành một “ứng viên hoàn hảo”. Tôi muốn được biết đến như một người
+      <strong>
+       thích tạo ra thứ mới, chia sẻ thử nghiệm và để sản phẩm tự nói lên cá tính.
+      </strong>
+     </p>
+     <div class="mlist">
+      <div class="mitem">
+       <b>
+        01
+       </b>
+       <span>
+        Xây dựng bot và công cụ phục vụ nhu cầu thật.
+       </span>
+      </div>
+      <div class="mitem">
+       <b>
+        02
+       </b>
+       <span>
+        Biến GitHub thành nhật ký sản phẩm, không chỉ là kho code.
+       </span>
+      </div>
+      <div class="mitem">
+       <b>
+        03
+       </b>
+       <span>
+        Duy trì phong cách dễ nhận ra: neon, năng lượng và trực tiếp.
+       </span>
+      </div>
+     </div>
+    </article>
+   </section>
+   <section class="container reveal" id="github">
+    <div class="shead">
+     <div>
+      <span class="kicker">
+       02 / GitHub import
+      </span>
+      <h2>
+       Những gì đang được xây dựng.
+      </h2>
+     </div>
+     <p class="scopy">
+      Dữ liệu có fallback sẵn và sẽ tự cập nhật từ GitHub API khi trang có kết nối mạng.
+     </p>
+    </div>
+    <div class="repogrid">
+     <a class="repo" data-repo="botjs-vxk" href="https://github.com/Xuankiendev/botjs-vxk" rel="noopener" target="_blank">
+      <div class="repohead">
+       <div class="repoicon">
+        B
+       </div>
+       <div class="reponame">
+        botjs-vxk
+       </div>
+      </div>
+      <p>
+       Bot Zalo unofficial dùng JavaScript/Node.js, tập trung vào message event, command handler và automation.
+      </p>
+      <div class="repometa">
+       <span class="lang">
+        <i class="langdot">
+        </i>
+        <span data-lang="">
+         JavaScript
+        </span>
+       </span>
+       <span data-updated="">
+        Featured project
+       </span>
+      </div>
+     </a>
+     <a class="repo" data-repo="duoi-hinh-bat-chu" href="https://github.com/Xuankiendev/duoi-hinh-bat-chu" rel="noopener" target="_blank">
+      <div class="repohead">
+       <div class="repoicon">
+        Đ
+       </div>
+       <div class="reponame">
+        duoi-hinh-bat-chu
+       </div>
+      </div>
+      <p>
+       Dự án JavaScript với dữ liệu câu hỏi, hình ảnh và công cụ phục vụ trải nghiệm đuổi hình bắt chữ.
+      </p>
+      <div class="repometa">
+       <span class="lang">
+        <i class="langdot">
+        </i>
+        <span data-lang="">
+         JavaScript
+        </span>
+       </span>
+       <span data-updated="">
+        Public experiment
+       </span>
+      </div>
+     </a>
+     <a class="repo" data-repo="Xuankiendev.github.io" href="https://github.com/Xuankiendev/Xuankiendev.github.io" rel="noopener" target="_blank">
+      <div class="repohead">
+       <div class="repoicon">
+        W
+       </div>
+       <div class="reponame">
+        Xuankiendev.github.io
+       </div>
+      </div>
+      <p>
+       Không gian web cá nhân trên GitHub Pages — nền móng để xây profile và thương hiệu riêng trên Internet.
+      </p>
+      <div class="repometa">
+       <span class="lang">
+        <i class="langdot">
+        </i>
+        <span data-lang="">
+         HTML
+        </span>
+       </span>
+       <span data-updated="">
+        Personal website
+       </span>
+      </div>
+     </a>
+     <a class="repo" data-repo="api-vxk1997" href="https://github.com/Xuankiendev/api-vxk1997" rel="noopener" target="_blank">
+      <div class="repohead">
+       <div class="repoicon">
+        A
+       </div>
+       <div class="reponame">
+        api-vxk1997
+       </div>
+      </div>
+      <p>
+       Bộ API utilities triển khai trên Vercel — một phần trong hệ sinh thái thử nghiệm công cụ cá nhân.
+      </p>
+      <div class="repometa">
+       <span class="lang">
+        <i class="langdot">
+        </i>
+        <span data-lang="">
+         HTML
+        </span>
+       </span>
+       <span data-updated="">
+        API utilities
+       </span>
+      </div>
+     </a>
+    </div>
+   </section>
+   <section class="container reveal" id="project">
+    <div class="shead">
+     <div>
+      <span class="kicker">
+       03 / Signature project
+      </span>
+      <h2>
+       Bot Zalo unofficial.
+      </h2>
+     </div>
+     <p class="scopy">
+      Project không chỉ xuất hiện như một dòng trong CV; nó là một phần nhận diện: JavaScript, bot, tự động hóa và tinh thần thử nghiệm.
+     </p>
+    </div>
+    <div class="brandstack">
+     <article class="card brandpanel">
+      <h3>
+       Project as identity.
+      </h3>
+      <p>
+       Bot Zalo là dự án đại diện cho cách tôi làm sản phẩm: bắt đầu từ một nhu cầu, tìm hiểu nền tảng, dựng luồng xử lý và liên tục thử nghiệm.
+      </p>
+      <div class="tape">
+       <span>
+        UNOFFICIAL
+       </span>
+       <span>
+        JAVASCRIPT
+       </span>
+       <span>
+        MESSAGE EVENTS
+       </span>
+       <span>
+        COMMAND HANDLER
+       </span>
+       <span>
+        AUTOMATION
+       </span>
+      </div>
+     </article>
+     <article class="card terminal">
+      <div class="tbar">
+       <i>
+       </i>
+       <i>
+       </i>
+       <i>
+       </i>
+      </div>
+      <div>
+       <span class="muted">
+        $
+       </span>
+       node index.js
+      </div>
+      <div>
+       <span class="green">
+        ✓
+       </span>
+       bot initialized
+      </div>
+      <div>
+       <span class="cyan">
+        →
+       </span>
+       waiting for message events...
+      </div>
+      <div>
+       <span class="pink">
+        ◆
+       </span>
+       command received: /menu
+      </div>
+      <div>
+       <span class="yellow">
+        ⚡
+       </span>
+       running handler
+      </div>
+      <div>
+       <span class="green">
+        ✓
+       </span>
+       response delivered
+      </div>
+      <div>
+       <span class="muted">
+        # build → test → share → repeat
+       </span>
+      </div>
+     </article>
+    </div>
+   </section>
+   <section class="container reveal">
+    <div class="contact">
+     <div>
+      <span class="kicker" style="color:#0b0611">
+       04 / Connect
+      </span>
+      <h2>
+       Kết nối với Xuankiendev.
+      </h2>
+      <p>
+       Zalo là kênh liên hệ chính. GitHub là nơi xem những gì tôi đang xây.
+      </p>
+     </div>
+     <div class="cactions">
+      <a class="btn mainbtn" href="https://zalo.me/0913288691" rel="noopener" target="_blank">
+       Zalo 0913288691 ↗
+      </a>
+      <a class="btn ghost" href="https://github.com/Xuankiendev" rel="noopener" target="_blank">
+       GitHub ↗
+      </a>
+      <a class="btn ghost" href="https://www.facebook.com/share/18ZGPAC3iU/" rel="noopener" target="_blank">
+       Facebook ↗
+      </a>
+     </div>
+    </div>
+   </section>
+  </main>
+  <footer class="container">
+   <div class="footer">
+    <span>
+     ©
+     <span id="year">
+     </span>
+     Vũ Xuân Kiên · Xuankiendev.
+    </span>
+    <span>
+     Not a résumé. A digital identity.
+    </span>
+   </div>
+  </footer>
+  <script>
+   const GITHUB_USERNAME = "Xuankiendev";
+
+const isMobileDevice =
+  window.matchMedia("(pointer: coarse)").matches ||
+  window.innerWidth <= 768;
+
+const prefersReducedMotion =
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const yearElement = document.getElementById("year");
+const typingElement = document.querySelector("[data-typing]");
+const activityGridElement = document.getElementById("agrid");
+const activityLabelElement = document.getElementById("alabel");
+const githubNameElement = document.getElementById("ghname");
+const githubAvatarElement = document.getElementById("avatar");
+const repositoriesElement = document.getElementById("repos");
+const followersElement = document.getElementById("followers");
+const followingElement = document.getElementById("following");
+const readmeShellElement = document.getElementById("shell");
+const effectsToggleElement = document.getElementById("toggle");
+const effectsCanvas = document.getElementById("fx");
+
+yearElement.textContent = new Date().getFullYear();
+
+
+/* =========================================================
+   TYPING EFFECT
+   ========================================================= */
+
+const typingPhrases = [
+  "JavaScript · Bot · Automation.",
+  "Building a personal brand in public.",
+  "Code, experiments and digital identity.",
+];
+
+let currentPhraseIndex = 0;
+let currentCharacterIndex = 0;
+let isDeletingText = false;
+
+function runTypingEffect() {
+  if (prefersReducedMotion) {
+    typingElement.textContent = typingPhrases[0];
+    return;
+  }
+
+  const currentPhrase = typingPhrases[currentPhraseIndex];
+
+  typingElement.textContent = currentPhrase.slice(
+    0,
+    currentCharacterIndex,
+  );
+
+  if (
+    !isDeletingText &&
+    currentCharacterIndex < currentPhrase.length
+  ) {
+    currentCharacterIndex += 1;
+    window.setTimeout(runTypingEffect, 58);
+    return;
+  }
+
+  if (!isDeletingText) {
+    isDeletingText = true;
+    window.setTimeout(runTypingEffect, 1350);
+    return;
+  }
+
+  if (currentCharacterIndex > 0) {
+    currentCharacterIndex -= 1;
+    window.setTimeout(runTypingEffect, 30);
+    return;
+  }
+
+  isDeletingText = false;
+
+  currentPhraseIndex =
+    (currentPhraseIndex + 1) % typingPhrases.length;
+
+  window.setTimeout(runTypingEffect, 220);
+}
+
+runTypingEffect();
+
+
+/* =========================================================
+   SCROLL REVEAL
+   ========================================================= */
+
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) {
+        return;
+      }
+
+      entry.target.classList.add("show");
+      revealObserver.unobserve(entry.target);
+    });
+  },
+  {
+    threshold: 0.12,
+  },
+);
+
+document
+  .querySelectorAll(".reveal")
+  .forEach((element) => {
+    revealObserver.observe(element);
+  });
+
+
+/* =========================================================
+   GITHUB-STYLE ACTIVITY GRID
+   ========================================================= */
+
+const fallbackActivityLevels = [
+  0, 1, 0, 2, 0, 1, 3, 0, 0, 1, 2, 0,
+  4, 1, 0, 2, 0, 1, 1, 0, 3, 2, 0, 0,
+  1, 0, 2, 4, 0, 1, 0, 3, 1, 0, 2, 0,
+  1, 4, 2, 0, 0, 1, 3, 0, 2, 1, 0, 4,
+  0, 2, 1, 0, 3, 1, 2, 0, 4, 1, 0, 2,
+  3, 0, 1, 0, 2, 4, 1, 0, 3, 2, 0, 1,
+  4, 0, 2, 1, 0, 3, 0, 4, 1, 2, 0, 3,
+];
+
+function renderActivityGrid(activityLevels) {
+  activityGridElement.innerHTML = "";
+
+  activityLevels
+    .slice(0, 84)
+    .forEach((activityLevel) => {
+      const activityCell =
+        document.createElement("span");
+
+      activityCell.className =
+        "cell" +
+        (
+          activityLevel
+            ? ` l${activityLevel}`
+            : ""
+        );
+
+      activityGridElement.appendChild(activityCell);
+    });
+}
+
+renderActivityGrid(fallbackActivityLevels);
+
+
+/* =========================================================
+   LIVE GITHUB IMPORT
+   ========================================================= */
+
+async function loadGithubData() {
+  try {
+    const profileUrl =
+      `https://api.github.com/users/${GITHUB_USERNAME}`;
+
+    const repositoriesUrl =
+      `https://api.github.com/users/${GITHUB_USERNAME}` +
+      "/repos?per_page=100&sort=updated";
+
+    const eventsUrl =
+      `https://api.github.com/users/${GITHUB_USERNAME}` +
+      "/events/public?per_page=100";
+
+    const [
+      profileResponse,
+      repositoriesResponse,
+      eventsResponse,
+    ] = await Promise.all([
+      window.fetch(profileUrl),
+      window.fetch(repositoriesUrl),
+      window.fetch(eventsUrl),
+    ]);
+
+    if (
+      !profileResponse.ok ||
+      !repositoriesResponse.ok
+    ) {
+      throw new Error("GitHub API unavailable");
+    }
+
+    const profileData =
+      await profileResponse.json();
+
+    const repositoriesData =
+      await repositoriesResponse.json();
+
+    githubNameElement.textContent =
+      profileData.name ||
+      "Vũ Xuân Kiên";
+
+    githubAvatarElement.src =
+      profileData.avatar_url;
+
+    repositoriesElement.textContent =
+      profileData.public_repos ??
+      41;
+
+    followersElement.textContent =
+      profileData.followers ??
+      6;
+
+    followingElement.textContent =
+      profileData.following ??
+      2;
+
+    const repositoryMap = new Map(
+      repositoriesData.map((repository) => {
+        return [
+          repository.name,
+          repository,
+        ];
+      }),
+    );
+
+    document
+      .querySelectorAll("[data-repo]")
+      .forEach((repositoryCard) => {
+        const repositoryName =
+          repositoryCard.dataset.repo;
+
+        const repository =
+          repositoryMap.get(repositoryName);
+
+        if (!repository) {
+          return;
+        }
+
+        const languageElement =
+          repositoryCard.querySelector(
+            "[data-lang]",
+          );
+
+        const updatedElement =
+          repositoryCard.querySelector(
+            "[data-updated]",
+          );
+
+        languageElement.textContent =
+          repository.language ||
+          "Code";
+
+        const updatedDate =
+          new Date(repository.updated_at);
+
+        const formattedDate =
+          new Intl.DateTimeFormat(
+            "vi-VN",
+            {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            },
+          ).format(updatedDate);
+
+        updatedElement.textContent =
+          `Updated ${formattedDate}`;
+      });
+
+    if (!eventsResponse.ok) {
+      return;
+    }
+
+    const publicEvents =
+      await eventsResponse.json();
+
+    const activityCounts =
+      new Array(84).fill(0);
+
+    publicEvents.forEach((event) => {
+      const eventTime =
+        new Date(event.created_at);
+
+      const ageInMilliseconds =
+        Date.now() -
+        eventTime.getTime();
+
+      const ageInDays =
+        Math.floor(
+          ageInMilliseconds /
+          86_400_000,
+        );
+
+      const isInsideGrid =
+        ageInDays >= 0 &&
+        ageInDays < 84;
+
+      if (!isInsideGrid) {
+        return;
+      }
+
+      const gridIndex =
+        83 -
+        ageInDays;
+
+      activityCounts[gridIndex] += 1;
+    });
+
+    const liveActivityLevels =
+      activityCounts.map((activityCount) => {
+        if (activityCount === 0) {
+          return 0;
+        }
+
+        if (activityCount === 1) {
+          return 1;
+        }
+
+        if (activityCount <= 3) {
+          return 2;
+        }
+
+        if (activityCount <= 6) {
+          return 3;
+        }
+
+        return 4;
+      });
+
+    const hasLiveActivity =
+      liveActivityLevels.some(
+        (activityLevel) => {
+          return activityLevel > 0;
+        },
+      );
+
+    if (!hasLiveActivity) {
+      return;
+    }
+
+    renderActivityGrid(liveActivityLevels);
+
+    activityLabelElement.textContent =
+      `${publicEvents.length} recent public events`;
+  } catch (error) {
+    activityLabelElement.textContent =
+      "offline fallback";
+
+    console.warn(
+      "Không thể tải GitHub API:",
+      error,
+    );
+  }
+}
+
+loadGithubData();
+
+
+/* =========================================================
+   LIGHTWEIGHT README CARD TILT
+   ========================================================= */
+
+let tiltAnimationFrameId = null;
+
+function updateReadmeTilt(event) {
+  if (tiltAnimationFrameId !== null) {
+    return;
+  }
+
+  tiltAnimationFrameId =
+    window.requestAnimationFrame(() => {
+      const cardBounds =
+        readmeShellElement.getBoundingClientRect();
+
+      const pointerX =
+        event.clientX -
+        cardBounds.left;
+
+      const pointerY =
+        event.clientY -
+        cardBounds.top;
+
+      const rotateY =
+        (
+          pointerX /
+          cardBounds.width -
+          0.5
+        ) * 7;
+
+      const rotateX =
+        (
+          pointerY /
+          cardBounds.height -
+          0.5
+        ) * -7;
+
+      readmeShellElement.style.transform =
+        "perspective(1000px) " +
+        `rotateX(${rotateX}deg) ` +
+        `rotateY(${rotateY}deg)`;
+
+      tiltAnimationFrameId = null;
+    });
+}
+
+function resetReadmeTilt() {
+  readmeShellElement.style.transform = "";
+}
+
+if (
+  !isMobileDevice &&
+  !prefersReducedMotion
+) {
+  readmeShellElement.addEventListener(
+    "mousemove",
+    updateReadmeTilt,
+  );
+
+  readmeShellElement.addEventListener(
+    "mouseleave",
+    resetReadmeTilt,
+  );
+}
+
+
+/* =========================================================
+   LIGHTWEIGHT PARTICLE BACKGROUND
+   ========================================================= */
+
+const effectsContext =
+  effectsCanvas.getContext(
+    "2d",
+    {
+      alpha: true,
+    },
+  );
+
+const canvasPixelRatio =
+  Math.min(
+    window.devicePixelRatio ||
+    1,
+    1.5,
+  );
+
+const particleColors = [
+  "#ff3da6",
+  "#31e7ff",
+  "#ffe044",
+  "#a766ff",
+];
+
+let particles = [];
+let particlesAreRunning =
+  !prefersReducedMotion;
+
+let particleAnimationFrameId = null;
+let previousParticleFrameTime = 0;
+let canvasResizeTimerId = null;
+
+function createParticles() {
+  const particleCount =
+    isMobileDevice
+      ? 14
+      : 28;
+
+  particles = Array.from(
+    {
+      length: particleCount,
+    },
+    () => {
+      return {
+        x:
+          Math.random() *
+          window.innerWidth,
+
+        y:
+          Math.random() *
+          window.innerHeight,
+
+        radius:
+          Math.random() *
+          1.4 +
+          0.5,
+
+        velocityX:
+          (
+            Math.random() -
+            0.5
+          ) * 0.16,
+
+        velocityY:
+          (
+            Math.random() -
+            0.5
+          ) * 0.16,
+
+        color:
+          particleColors[
+            Math.floor(
+              Math.random() *
+              particleColors.length,
+            )
+          ],
+
+        alpha:
+          Math.random() *
+          0.5 +
+          0.2,
+      };
+    },
+  );
+}
+
+function resizeEffectsCanvas() {
+  effectsCanvas.width =
+    Math.round(
+      window.innerWidth *
+      canvasPixelRatio,
+    );
+
+  effectsCanvas.height =
+    Math.round(
+      window.innerHeight *
+      canvasPixelRatio,
+    );
+
+  effectsCanvas.style.width =
+    `${window.innerWidth}px`;
+
+  effectsCanvas.style.height =
+    `${window.innerHeight}px`;
+
+  effectsContext.setTransform(
+    canvasPixelRatio,
+    0,
+    0,
+    canvasPixelRatio,
+    0,
+    0,
+  );
+
+  createParticles();
+}
+
+function updateParticlePosition(particle) {
+  particle.x += particle.velocityX;
+  particle.y += particle.velocityY;
+
+  if (particle.x < -5) {
+    particle.x =
+      window.innerWidth +
+      5;
+  }
+
+  if (
+    particle.x >
+    window.innerWidth +
+    5
+  ) {
+    particle.x = -5;
+  }
+
+  if (particle.y < -5) {
+    particle.y =
+      window.innerHeight +
+      5;
+  }
+
+  if (
+    particle.y >
+    window.innerHeight +
+    5
+  ) {
+    particle.y = -5;
+  }
+}
+
+function drawParticle(particle) {
+  effectsContext.globalAlpha =
+    particle.alpha;
+
+  effectsContext.fillStyle =
+    particle.color;
+
+  effectsContext.beginPath();
+
+  effectsContext.arc(
+    particle.x,
+    particle.y,
+    particle.radius,
+    0,
+    Math.PI * 2,
+  );
+
+  effectsContext.fill();
+}
+
+function drawParticleFrame(currentTime) {
+  particleAnimationFrameId = null;
+
+  if (!particlesAreRunning) {
+    return;
+  }
+
+  particleAnimationFrameId =
+    window.requestAnimationFrame(
+      drawParticleFrame,
+    );
+
+  const millisecondsSinceLastFrame =
+    currentTime -
+    previousParticleFrameTime;
+
+  const shouldSkipFrame =
+    millisecondsSinceLastFrame <
+    33;
+
+  if (shouldSkipFrame) {
+    return;
+  }
+
+  previousParticleFrameTime =
+    currentTime;
+
+  effectsContext.clearRect(
+    0,
+    0,
+    window.innerWidth,
+    window.innerHeight,
+  );
+
+  particles.forEach((particle) => {
+    updateParticlePosition(particle);
+    drawParticle(particle);
+  });
+
+  effectsContext.globalAlpha = 1;
+}
+
+function startParticleAnimation() {
+  if (
+    particleAnimationFrameId !== null ||
+    !particlesAreRunning
+  ) {
+    return;
+  }
+
+  particleAnimationFrameId =
+    window.requestAnimationFrame(
+      drawParticleFrame,
+    );
+}
+
+function stopParticleAnimation() {
+  if (particleAnimationFrameId !== null) {
+    window.cancelAnimationFrame(
+      particleAnimationFrameId,
+    );
+
+    particleAnimationFrameId = null;
+  }
+
+  effectsContext.clearRect(
+    0,
+    0,
+    window.innerWidth,
+    window.innerHeight,
+  );
+}
+
+resizeEffectsCanvas();
+startParticleAnimation();
+
+
+/* =========================================================
+   RESIZE AND TAB VISIBILITY
+   ========================================================= */
+
+window.addEventListener(
+  "resize",
+  () => {
+    window.clearTimeout(
+      canvasResizeTimerId,
+    );
+
+    canvasResizeTimerId =
+      window.setTimeout(
+        resizeEffectsCanvas,
+        180,
+      );
+  },
+);
+
+document.addEventListener(
+  "visibilitychange",
+  () => {
+    if (document.hidden) {
+      particlesAreRunning = false;
+      stopParticleAnimation();
+      return;
+    }
+
+    const isLiteMode =
+      document.body.classList.contains(
+        "lite",
+      );
+
+    particlesAreRunning =
+      !prefersReducedMotion &&
+      !isLiteMode;
+
+    startParticleAnimation();
+  },
+);
+
+
+/* =========================================================
+   LITE FX TOGGLE
+   ========================================================= */
+
+effectsToggleElement.addEventListener(
+  "click",
+  () => {
+    const isLiteMode =
+      document.body.classList.toggle(
+        "lite",
+      );
+
+    effectsToggleElement.textContent =
+      isLiteMode
+        ? "Full FX"
+        : "Lite FX";
+
+    effectsToggleElement.setAttribute(
+      "aria-pressed",
+      String(isLiteMode),
+    );
+
+    particlesAreRunning =
+      !isLiteMode &&
+      !document.hidden &&
+      !prefersReducedMotion;
+
+    if (particlesAreRunning) {
+      startParticleAnimation();
+      return;
+    }
+
+    stopParticleAnimation();
+  },
+);
+  </script>
+ </body>
+</html>
