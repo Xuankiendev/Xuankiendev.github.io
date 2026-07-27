@@ -1,0 +1,1817 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Xuankiendev — Personal brand hub của Vũ Xuân Kiên. JavaScript, Bot, Automation, project cá nhân và một chút hài hước có chủ đích.">
+  <meta name="theme-color" content="#090511">
+  <title>Xuankiendev — Personal Brand</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #090511;
+      --bg-2: #12091d;
+      --surface: #171021;
+      --surface-2: #20142d;
+      --text: #ffffff;
+      --muted: #b9accb;
+      --pink: #ff3da6;
+      --orange: #ff7a1a;
+      --yellow: #ffe044;
+      --cyan: #31e7ff;
+      --blue: #6573ff;
+      --violet: #a766ff;
+      --green: #56f0a8;
+      --line: rgba(255,255,255,.14);
+      --max: 1200px;
+      --radius: 28px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 7%, rgba(255,61,166,.17), transparent 25%),
+        radial-gradient(circle at 87% 10%, rgba(49,231,255,.13), transparent 24%),
+        linear-gradient(180deg, #08040e 0%, #100719 52%, #08040e 100%);
+      font-family: "Be Vietnam Pro", system-ui, sans-serif;
+      line-height: 1.65;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    button { font: inherit; }
+
+    #fx-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: .72;
+    }
+
+    .ambient {
+      position: fixed;
+      z-index: 0;
+      width: 36vw;
+      max-width: 520px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(55px);
+      opacity: .25;
+      will-change: transform;
+    }
+
+    .ambient-a {
+      left: -12vw;
+      top: 8vh;
+      background: var(--pink);
+      animation: driftA 12s ease-in-out infinite alternate;
+    }
+
+    .ambient-b {
+      right: -13vw;
+      top: 28vh;
+      background: var(--cyan);
+      animation: driftB 15s ease-in-out infinite alternate;
+    }
+
+    @keyframes driftA {
+      to { transform: translate3d(10vw, 12vh, 0) scale(1.08); }
+    }
+
+    @keyframes driftB {
+      to { transform: translate3d(-9vw, 10vh, 0) scale(.92); }
+    }
+
+    .grid {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .08;
+      background-image:
+        linear-gradient(rgba(255,255,255,.16) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.16) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: linear-gradient(to bottom, #000, transparent 86%);
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      width: min(calc(100% - 36px), var(--max));
+      margin-inline: auto;
+    }
+
+    .header {
+      position: sticky;
+      top: 10px;
+      z-index: 30;
+      padding-top: 10px;
+    }
+
+    .nav {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 9px 10px 9px 16px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 999px;
+      background: rgba(11,6,18,.88);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 16px 42px rgba(0,0,0,.26);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 900;
+      letter-spacing: -.04em;
+    }
+
+    .brand-mark {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      overflow: hidden;
+      padding: 2px;
+      border-radius: 14px;
+      color: #0b0611;
+      background: linear-gradient(135deg, var(--yellow), var(--pink), var(--cyan));
+      box-shadow: 0 0 26px rgba(255,61,166,.3);
+      animation: logoFloat 3s ease-in-out infinite;
+    }
+
+    .brand-avatar {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      background: var(--surface-2);
+    }
+
+    .brand-fallback {
+      position: absolute;
+      inset: 2px;
+      z-index: 1;
+      display: none;
+      place-items: center;
+      border-radius: 12px;
+      color: #0b0611;
+      background: linear-gradient(135deg, var(--yellow), var(--pink), var(--cyan));
+      font-weight: 900;
+    }
+
+    @keyframes logoFloat {
+      50% { transform: translateY(-3px) rotate(-3deg); }
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-links a,
+    .fx-toggle {
+      padding: 9px 12px;
+      border: 0;
+      border-radius: 999px;
+      color: var(--muted);
+      background: transparent;
+      font-size: 13px;
+      font-weight: 750;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .nav-links a:hover,
+    .fx-toggle:hover {
+      color: #fff;
+      background: rgba(255,255,255,.08);
+    }
+
+    .nav-cta {
+      color: #0b0611 !important;
+      background: linear-gradient(135deg, var(--yellow), var(--orange), var(--pink)) !important;
+    }
+
+    .hero {
+      min-height: 88vh;
+      display: grid;
+      grid-template-columns: 1.03fr .97fr;
+      align-items: center;
+      gap: 62px;
+      padding: 82px 0 68px;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 12px;
+      border: 1px solid rgba(86,240,168,.28);
+      border-radius: 999px;
+      color: #ceffe8;
+      background: rgba(86,240,168,.075);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: ping 1.9s infinite;
+    }
+
+    @keyframes ping {
+      70% { box-shadow: 0 0 0 10px rgba(86,240,168,0); }
+      100% { box-shadow: 0 0 0 0 rgba(86,240,168,0); }
+    }
+
+    h1 {
+      margin: 22px 0 18px;
+      font-size: clamp(54px, 8vw, 104px);
+      line-height: .92;
+      letter-spacing: -.078em;
+    }
+
+    .name-line { display: block; }
+
+    .neon-line {
+      display: block;
+      color: transparent;
+      background: linear-gradient(90deg, var(--pink), var(--yellow), var(--cyan), var(--violet), var(--pink));
+      background-size: 240% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: colorFlow 6s linear infinite;
+      filter: drop-shadow(0 0 18px rgba(255,61,166,.16));
+    }
+
+    @keyframes colorFlow {
+      to { background-position: 240% 50%; }
+    }
+
+    .typing {
+      min-height: 34px;
+      margin-bottom: 14px;
+      color: #f2e7fb;
+      font-size: clamp(18px, 2vw, 22px);
+      font-weight: 800;
+    }
+
+    .typing::after {
+      content: "";
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      margin-left: 6px;
+      vertical-align: -.12em;
+      background: var(--yellow);
+      animation: blink .9s step-end infinite;
+    }
+
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .lead {
+      max-width: 740px;
+      margin: 0 0 28px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 11px;
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      position: relative;
+      overflow: hidden;
+      min-height: 52px;
+      padding: 0 19px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      border: 1px solid transparent;
+      border-radius: 16px;
+      font-weight: 900;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .btn:hover { transform: translateY(-3px); }
+
+    .btn-main {
+      color: #0b0611;
+      background: linear-gradient(120deg, var(--yellow), var(--orange), var(--pink));
+      box-shadow: 0 16px 36px rgba(255,91,46,.22);
+    }
+
+    .btn-ghost {
+      border-color: var(--line);
+      background: rgba(255,255,255,.06);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #eadff4;
+      background: rgba(255,255,255,.035);
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .readme-shell {
+      position: relative;
+      padding: 1px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, var(--pink), var(--yellow), var(--cyan), var(--violet));
+      box-shadow: 0 30px 80px rgba(0,0,0,.4), 0 0 52px rgba(255,61,166,.12);
+      transform-style: preserve-3d;
+    }
+
+    .readme {
+      position: relative;
+      min-height: 565px;
+      padding: 28px;
+      overflow: hidden;
+      border-radius: 29px;
+      background: linear-gradient(145deg, rgba(255,255,255,.045), transparent 40%), #100918;
+    }
+
+    .readme::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(180deg, transparent 0, transparent 5px, rgba(255,255,255,.018) 6px);
+    }
+
+    .readme-head {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .github-avatar {
+      width: 58px;
+      height: 58px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(255,255,255,.24);
+      box-shadow: 0 0 24px rgba(49,231,255,.16);
+      background: var(--surface-2);
+    }
+
+    .readme-id strong {
+      display: block;
+      font-size: 18px;
+      letter-spacing: -.025em;
+    }
+
+    .readme-id span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .gh-button {
+      margin-left: auto;
+      padding: 8px 11px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      color: #e9def4;
+      background: #21152d;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .md-block {
+      position: relative;
+      z-index: 1;
+      margin-top: 22px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    .md-title {
+      margin-bottom: 8px;
+      color: #fff;
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: -.04em;
+    }
+
+    .md-title .hash { color: var(--pink); }
+    .md-line { color: #c9bdd6; font-size: 13px; line-height: 1.8; }
+    .md-key { color: var(--cyan); }
+    .md-value { color: var(--yellow); }
+
+    .gh-stats {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+      margin-top: 20px;
+    }
+
+    .gh-stat {
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #181020;
+    }
+
+    .gh-stat b {
+      display: block;
+      font-size: 22px;
+      line-height: 1.1;
+    }
+
+    .gh-stat span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .activity-wrap {
+      position: relative;
+      z-index: 1;
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #0c0811;
+    }
+
+    .activity-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      color: #d7cce2;
+      font-size: 11px;
+      font-weight: 750;
+    }
+
+    .activity-grid {
+      display: grid;
+      grid-template-columns: repeat(14, 1fr);
+      gap: 4px;
+    }
+
+    .activity-cell {
+      aspect-ratio: 1;
+      border-radius: 3px;
+      background: #25162e;
+      transition: transform .15s ease;
+    }
+
+    .activity-cell:hover { transform: scale(1.35); }
+    .lv1 { background: #49235b; }
+    .lv2 { background: #73308c; }
+    .lv3 { background: #ae43c2; box-shadow: 0 0 8px rgba(174,67,194,.35); }
+    .lv4 { background: #31e7ff; box-shadow: 0 0 10px rgba(49,231,255,.4); }
+
+    .readme-foot {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .readme-foot span {
+      padding: 5px 8px;
+      border-radius: 6px;
+      color: #f1e9f8;
+      background: #21142b;
+      font-size: 10px;
+      font-weight: 750;
+    }
+
+    .marquee {
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+      border-block: 1px solid rgba(255,255,255,.09);
+      background: linear-gradient(90deg, rgba(255,61,166,.08), rgba(49,231,255,.055), rgba(255,122,26,.08));
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      gap: 28px;
+      padding: 13px 0;
+      animation: marquee 24s linear infinite;
+    }
+
+    .marquee-track span {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      color: #efe5f7;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .marquee-track span::after {
+      content: "✦";
+      color: var(--yellow);
+    }
+
+    @keyframes marquee {
+      to { transform: translateX(-50%); }
+    }
+
+    section { padding: 94px 0; }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 28px;
+      align-items: end;
+      margin-bottom: 34px;
+    }
+
+    .kicker {
+      color: var(--yellow);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 9px 0 0;
+      font-size: clamp(38px, 5.3vw, 64px);
+      line-height: 1.06;
+      letter-spacing: -.055em;
+    }
+
+    .section-copy {
+      margin: 0;
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: radial-gradient(circle at 90% 5%, rgba(255,61,166,.09), transparent 25%), linear-gradient(145deg, #1a1024, #110a18);
+      box-shadow: 0 24px 64px rgba(0,0,0,.22);
+    }
+
+    .manifesto {
+      padding: clamp(28px, 5vw, 52px);
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .manifesto-big {
+      margin: 0;
+      font-size: clamp(25px, 3.4vw, 42px);
+      line-height: 1.36;
+      letter-spacing: -.04em;
+    }
+
+    .manifesto-big strong {
+      color: transparent;
+      background: linear-gradient(90deg, var(--yellow), var(--pink), var(--cyan));
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .manifesto-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .manifesto-item {
+      padding: 14px 15px;
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 12px;
+      border: 1px solid rgba(255,255,255,.11);
+      border-radius: 14px;
+      background: rgba(255,255,255,.035);
+    }
+
+    .manifesto-item b { color: var(--cyan); }
+    .manifesto-item span { color: var(--muted); font-size: 14px; }
+
+    .repo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .repo {
+      position: relative;
+      min-height: 250px;
+      padding: 24px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(145deg, #1a1024, #100917);
+      transition: transform .2s ease, border-color .2s ease;
+    }
+
+    .repo:hover {
+      transform: translateY(-5px);
+      border-color: rgba(49,231,255,.34);
+    }
+
+    .repo::after {
+      content: "";
+      position: absolute;
+      right: -50px;
+      bottom: -70px;
+      width: 170px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,61,166,.18), transparent 70%);
+      pointer-events: none;
+    }
+
+    .repo-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .repo-icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: #0a0610;
+      background: linear-gradient(135deg, var(--yellow), var(--pink), var(--cyan));
+      font-weight: 900;
+    }
+
+    .repo-name {
+      font-size: 18px;
+      font-weight: 850;
+      letter-spacing: -.03em;
+    }
+
+    .repo p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .repo-meta {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+      color: #d9cee5;
+      font-size: 11px;
+    }
+
+    .lang {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .lang-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--yellow);
+      box-shadow: 0 0 9px rgba(255,224,68,.3);
+    }
+
+    .brand-stack {
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 18px;
+    }
+
+    .brand-panel {
+      padding: 30px;
+    }
+
+    .brand-panel h3 {
+      margin: 0 0 12px;
+      font-size: 28px;
+      letter-spacing: -.04em;
+    }
+
+    .brand-panel p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .identity-tape {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .identity-tape span {
+      padding: 7px 10px;
+      border-radius: 8px;
+      color: #0d0714;
+      background: linear-gradient(135deg, var(--yellow), var(--orange));
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .terminal {
+      padding: 28px;
+      background: radial-gradient(circle at 90% 10%, rgba(49,231,255,.09), transparent 25%), #0a0710;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.9;
+    }
+
+    .terminal-bar {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 24px;
+    }
+
+    .terminal-bar i {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--pink);
+    }
+
+    .terminal-bar i:nth-child(2) { background: var(--yellow); }
+    .terminal-bar i:nth-child(3) { background: var(--green); }
+
+    .t-cyan { color: var(--cyan); }
+    .t-pink { color: var(--pink); }
+    .t-yellow { color: var(--yellow); }
+    .t-green { color: var(--green); }
+    .t-muted { color: #70667b; }
+
+    .donate-layout {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 18px;
+    }
+
+    .donate-card {
+      padding: 28px;
+    }
+
+    .donate-card h3 {
+      margin: 0 0 12px;
+      font-size: 30px;
+      letter-spacing: -.04em;
+    }
+
+    .donate-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .donate-info {
+      margin-top: 22px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .donate-row {
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 14px;
+      background: rgba(255,255,255,.035);
+    }
+
+    .donate-row small {
+      display: block;
+      margin-bottom: 4px;
+      color: #d7cce2;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .donate-row strong {
+      display: block;
+      font-size: 18px;
+      letter-spacing: -.02em;
+    }
+
+    .fun-note {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-left: 3px solid var(--yellow);
+      border-radius: 0 12px 12px 0;
+      color: #efe6f8;
+      background: rgba(255,224,68,.08);
+      font-size: 14px;
+    }
+
+    .qr-wrap {
+      padding: 24px;
+      display: grid;
+      align-content: start;
+      gap: 14px;
+    }
+
+    .qr-box {
+      padding: 18px;
+      border-radius: 24px;
+      background: linear-gradient(145deg, #fff, #f3f0ff);
+      box-shadow: 0 24px 60px rgba(0,0,0,.24);
+    }
+
+    .qr-box img {
+      width: 100%;
+      border-radius: 16px;
+    }
+
+    .qr-caption {
+      color: #ece2f6;
+      font-size: 14px;
+    }
+
+    .contact {
+      padding: clamp(36px, 6vw, 72px);
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 30px;
+      align-items: center;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 34px;
+      color: #0b0611;
+      background: linear-gradient(120deg, var(--yellow), var(--orange), var(--pink), var(--cyan));
+      background-size: 190% 190%;
+      animation: contactFlow 9s ease-in-out infinite;
+      box-shadow: 0 30px 90px rgba(255,61,166,.16);
+    }
+
+    @keyframes contactFlow {
+      50% { background-position: 100% 50%; }
+    }
+
+    .contact h2 { margin-top: 0; }
+    .contact p { margin: 0; color: rgba(11,6,17,.72); }
+
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .contact .btn-main {
+      color: #fff;
+      background: #0b0611;
+      box-shadow: 0 15px 35px rgba(11,6,17,.24);
+    }
+
+    .contact .btn-ghost {
+      color: #0b0611;
+      border-color: rgba(11,6,17,.2);
+      background: rgba(255,255,255,.22);
+    }
+
+    footer {
+      position: relative;
+      z-index: 2;
+      padding: 32px 0 46px;
+      color: #8f819f;
+      font-size: 13px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,.1);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    body.lite #fx-canvas,
+    body.lite .ambient {
+      display: none;
+    }
+
+    body.lite .marquee-track,
+    body.lite .neon-line,
+    body.lite .contact,
+    body.lite .brand-mark,
+    body.lite .status-dot {
+      animation: none;
+    }
+
+    @media (max-width: 940px) {
+      .hero,
+      .section-head,
+      .manifesto,
+      .brand-stack,
+      .donate-layout,
+      .contact {
+        grid-template-columns: 1fr;
+      }
+
+      .hero { gap: 38px; }
+      .repo-grid { grid-template-columns: 1fr; }
+      .contact-actions { justify-content: flex-start; }
+    }
+
+    @media (max-width: 650px) {
+      .container { width: min(calc(100% - 22px), var(--max)); }
+      .header { top: 7px; padding-top: 7px; }
+
+      .brand > span:last-child,
+      .nav-links a:not(.nav-cta) {
+        display: none;
+      }
+
+      .fx-toggle { padding-inline: 9px; }
+
+      .hero {
+        min-height: auto;
+        padding: 66px 0 44px;
+      }
+
+      h1 { font-size: clamp(50px, 16vw, 75px); }
+      .readme { min-height: 520px; padding: 21px; }
+      .github-avatar { width: 50px; height: 50px; }
+      .gh-button { display: none; }
+      .activity-grid { gap: 3px; }
+      section { padding: 72px 0; }
+      .manifesto { padding: 24px; }
+      .footer-inner { flex-direction: column; }
+    }
+
+    @media (pointer: coarse), (max-width: 768px) {
+      #fx-canvas { opacity: .42; }
+      .ambient { display: none; }
+      .readme-shell { box-shadow: 0 22px 55px rgba(0,0,0,.35); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation: none !important;
+        transition-duration: .01ms !important;
+      }
+
+      #fx-canvas,
+      .ambient {
+        display: none;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="fx-canvas" aria-hidden="true"></canvas>
+  <div class="ambient ambient-a" aria-hidden="true"></div>
+  <div class="ambient ambient-b" aria-hidden="true"></div>
+  <div class="grid" aria-hidden="true"></div>
+
+  <header class="header container">
+    <div class="nav">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true">
+          <img
+            class="brand-avatar"
+            data-github-avatar
+            src="https://avatars.githubusercontent.com/Xuankiendev"
+            alt=""
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';"
+          >
+          <span class="brand-fallback">K</span>
+        </span>
+        <span>Xuankiendev</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Điều hướng">
+        <a href="#identity">Identity</a>
+        <a href="#github">GitHub</a>
+        <a href="#project">Projects</a>
+        <a href="#donate">Donate</a>
+        <button class="fx-toggle" id="fx-toggle" type="button" aria-pressed="false">Lite FX</button>
+        <a class="nav-cta" href="https://zalo.me/0913288691" target="_blank" rel="noopener noreferrer">Zalo</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero container">
+      <div>
+        <span class="status">
+          <span class="status-dot"></span>
+          Portfolio có màu mè, có ích và có hơi... lầy
+        </span>
+
+        <h1>
+          <span class="name-line">Vũ Xuân Kiên</span>
+          <span class="neon-line">Xuankiendev.</span>
+        </h1>
+
+        <div class="typing" data-typing></div>
+
+        <p class="lead">
+          Đây không phải CV xin việc. Đây là căn cứ địa online của tôi:
+          nơi khoe project, nghịch bot, quăng thử nghiệm và tiện thể chứng minh
+          rằng làm dev vẫn có thể có khiếu... gây chú ý.
+        </p>
+
+        <div class="actions">
+          <a class="btn btn-main" href="https://zalo.me/0913288691" target="_blank" rel="noopener noreferrer">
+            Kết nối qua Zalo ↗
+          </a>
+          <a class="btn btn-ghost" href="https://github.com/Xuankiendev" target="_blank" rel="noopener noreferrer">
+            GitHub @Xuankiendev ↗
+          </a>
+        </div>
+
+        <div class="chips">
+          <span class="chip">JavaScript</span>
+          <span class="chip">Node.js</span>
+          <span class="chip">Bot</span>
+          <span class="chip">Automation</span>
+          <span class="chip">Digital Experiments</span>
+        </div>
+      </div>
+
+      <div class="readme-shell" id="readme-shell">
+        <article class="readme">
+          <header class="readme-head">
+            <img
+              id="github-avatar"
+              class="github-avatar"
+              data-github-avatar
+              src="https://avatars.githubusercontent.com/Xuankiendev"
+              alt="GitHub avatar của Xuankiendev"
+            >
+            <div class="readme-id">
+              <strong id="github-name">Vũ Xuân Kiên</strong>
+              <span>@Xuankiendev · Hải Phòng, Việt Nam</span>
+            </div>
+            <a class="gh-button" href="https://github.com/Xuankiendev" target="_blank" rel="noopener noreferrer">View GitHub ↗</a>
+          </header>
+
+          <div class="md-block">
+            <div class="md-title"><span class="hash">#</span> Hi, I'm Xuankiendev 👋</div>
+            <div class="md-line"><span class="md-key">const</span> identity = <span class="md-value">"developer + builder + internet person + hơi tăng động"</span>;</div>
+            <div class="md-line"><span class="md-key">currentlyBuilding</span>: <span class="md-value">Bot Zalo unofficial</span></div>
+            <div class="md-line"><span class="md-key">mainContact</span>: <span class="md-value">zalo.me/0913288691</span></div>
+            <div class="md-line"><span class="md-key">motto</span>: <span class="md-value">build → test → share → repeat</span></div>
+          </div>
+
+          <div class="gh-stats">
+            <div class="gh-stat"><b id="repo-count">41</b><span>public repos</span></div>
+            <div class="gh-stat"><b id="follower-count">6</b><span>followers</span></div>
+            <div class="gh-stat"><b id="following-count">2</b><span>following</span></div>
+          </div>
+
+          <div class="activity-wrap">
+            <div class="activity-head">
+              <span>GitHub-style activity</span>
+              <span id="activity-label">building in public</span>
+            </div>
+            <div class="activity-grid" id="activity-grid" aria-label="Lưới hoạt động GitHub"></div>
+          </div>
+
+          <div class="readme-foot">
+            <span>JavaScript</span>
+            <span>HTML/CSS</span>
+            <span>Python</span>
+            <span>Cloudflare</span>
+            <span>Vercel</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Xuankiendev</span>
+        <span>Bot Zalo Unofficial</span>
+        <span>JavaScript</span>
+        <span>Build In Public</span>
+        <span>Nuôi Kiên</span>
+        <span>Portfolio Có Cá Tính</span>
+        <span>Xuankiendev</span>
+        <span>Bot Zalo Unofficial</span>
+        <span>JavaScript</span>
+        <span>Build In Public</span>
+        <span>Nuôi Kiên</span>
+        <span>Portfolio Có Cá Tính</span>
+      </div>
+    </div>
+
+    <section id="identity" class="container reveal">
+      <div class="section-head">
+        <div>
+          <span class="kicker">01 / Identity</span>
+          <h2>Một góc Internet mang tên Xuankiendev.</h2>
+        </div>
+        <p class="section-copy">
+          Portfolio này được làm như một hồ sơ thương hiệu cá nhân mở rộng:
+          có README vibe, có project, có phát sáng và có vài câu đùa vừa đủ để
+          ai lướt qua cũng biết chủ nhân không phải bản beta của một CV nhàm chán.
+        </p>
+      </div>
+
+      <article class="card manifesto">
+        <p class="manifesto-big">
+          Tôi không cố trở thành một “ứng viên hoàn hảo”.
+          Tôi muốn được nhớ tới như một người <strong>thích tạo ra thứ mới,
+          thích build in public và thích để project tự lên tiếng thay cho câu
+          "em là người chăm chỉ, ham học hỏi".</strong>
+        </p>
+
+        <div class="manifesto-list">
+          <div class="manifesto-item">
+            <b>01</b>
+            <span>Xây dựng bot và công cụ phục vụ nhu cầu thật — không chỉ để code cho vui, dù vui vẫn là có.</span>
+          </div>
+          <div class="manifesto-item">
+            <b>02</b>
+            <span>Biến GitHub thành nhật ký sản phẩm, chứ không chỉ là chỗ cất code rồi quên mật khẩu.</span>
+          </div>
+          <div class="manifesto-item">
+            <b>03</b>
+            <span>Duy trì phong cách riêng: neon, năng lượng và đủ “mặn” để người xem nhớ được mình.</span>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section id="github" class="container reveal">
+      <div class="section-head">
+        <div>
+          <span class="kicker">02 / GitHub import</span>
+          <h2>Những gì đang được xây dựng.</h2>
+        </div>
+        <p class="section-copy">
+          Dữ liệu dưới đây có fallback sẵn và sẽ tự cập nhật từ GitHub API khi có mạng.
+          Nói cách khác: nếu GitHub ngủ quên, portfolio này vẫn tỉnh táo.
+        </p>
+      </div>
+
+      <div class="repo-grid" id="repo-grid">
+        <a class="repo" href="https://github.com/Xuankiendev/botjs-vxk" target="_blank" rel="noopener noreferrer" data-repo="botjs-vxk">
+          <div class="repo-head">
+            <div class="repo-icon">B</div>
+            <div class="repo-name">botjs-vxk</div>
+          </div>
+          <p>Bot Zalo unofficial dùng JavaScript/Node.js, tập trung vào message event, command handler và automation. Cục cưng kỹ thuật số có phần hơi nghịch.</p>
+          <div class="repo-meta">
+            <span class="lang"><i class="lang-dot"></i><span data-language>JavaScript</span></span>
+            <span data-updated>Featured project</span>
+          </div>
+        </a>
+
+        <a class="repo" href="https://github.com/Xuankiendev/duoi-hinh-bat-chu" target="_blank" rel="noopener noreferrer" data-repo="duoi-hinh-bat-chu">
+          <div class="repo-head">
+            <div class="repo-icon">Đ</div>
+            <div class="repo-name">duoi-hinh-bat-chu</div>
+          </div>
+          <p>Dự án JavaScript với dữ liệu câu hỏi, hình ảnh và công cụ phục vụ trải nghiệm đuổi hình bắt chữ. Kiểu vừa học vừa đoán vừa cay.</p>
+          <div class="repo-meta">
+            <span class="lang"><i class="lang-dot"></i><span data-language>JavaScript</span></span>
+            <span data-updated>Public experiment</span>
+          </div>
+        </a>
+
+        <a class="repo" href="https://github.com/Xuankiendev/Xuankiendev.github.io" target="_blank" rel="noopener noreferrer" data-repo="Xuankiendev.github.io">
+          <div class="repo-head">
+            <div class="repo-icon">W</div>
+            <div class="repo-name">Xuankiendev.github.io</div>
+          </div>
+          <p>Không gian web cá nhân trên GitHub Pages — nền móng để xây profile online, thương hiệu riêng và nơi để ánh đèn neon có lý do tồn tại.</p>
+          <div class="repo-meta">
+            <span class="lang"><i class="lang-dot"></i><span data-language>HTML</span></span>
+            <span data-updated>Personal website</span>
+          </div>
+        </a>
+
+        <a class="repo" href="https://github.com/Xuankiendev/api-vxk1997" target="_blank" rel="noopener noreferrer" data-repo="api-vxk1997">
+          <div class="repo-head">
+            <div class="repo-icon">A</div>
+            <div class="repo-name">api-vxk1997</div>
+          </div>
+          <p>Bộ API utilities triển khai trên Vercel — một phần trong hệ sinh thái thử nghiệm công cụ cá nhân, nơi mọi thứ trông hơi nguy hiểm nhưng khá hữu ích.</p>
+          <div class="repo-meta">
+            <span class="lang"><i class="lang-dot"></i><span data-language>HTML</span></span>
+            <span data-updated>API utilities</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section id="project" class="container reveal">
+      <div class="section-head">
+        <div>
+          <span class="kicker">03 / Signature project</span>
+          <h2>Bot Zalo unofficial.</h2>
+        </div>
+        <p class="section-copy">
+          Project này không chỉ là một item trong danh sách. Nó là cái tên gắn với phong cách của tôi:
+          JavaScript, bot, automation và tinh thần “thử được thì cứ thử”.
+        </p>
+      </div>
+
+      <div class="brand-stack">
+        <article class="card brand-panel">
+          <h3>Project as identity.</h3>
+          <p>
+            Bot Zalo là dự án đại diện cho cách tôi làm sản phẩm: bắt đầu từ nhu cầu,
+            chui vào nền tảng, dựng luồng xử lý và tối ưu dần theo kiểu “vừa làm vừa cười vì bug”.
+          </p>
+          <div class="identity-tape">
+            <span>UNOFFICIAL</span>
+            <span>JAVASCRIPT</span>
+            <span>MESSAGE EVENTS</span>
+            <span>COMMAND HANDLER</span>
+            <span>AUTOMATION</span>
+          </div>
+        </article>
+
+        <article class="card terminal" aria-label="Mô phỏng terminal Bot Zalo">
+          <div class="terminal-bar"><i></i><i></i><i></i></div>
+          <div><span class="t-muted">$</span> node index.js</div>
+          <div><span class="t-green">✓</span> bot initialized</div>
+          <div><span class="t-cyan">→</span> waiting for message events...</div>
+          <div><span class="t-pink">◆</span> command received: /menu</div>
+          <div><span class="t-yellow">⚡</span> running handler</div>
+          <div><span class="t-green">✓</span> response delivered</div>
+          <div><span class="t-muted"># build → test → share → repeat → đi ngủ muộn</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="donate" class="container reveal">
+      <div class="section-head">
+        <div>
+          <span class="kicker">04 / Nuôi Kiên fund</span>
+          <h2>Quỹ “Nuôi Kiên”.</h2>
+        </div>
+        <p class="section-copy">
+          Đây là góc quyên góp hoàn toàn nghiêm túc về mặt kỹ thuật, nhưng hơi không nghiêm túc về mặt câu chữ.
+          Nếu thấy project vui, hữu ích hoặc đơn giản là thấy tôi đáng được tiếp tế tinh thần, bạn biết phải làm gì rồi đấy.
+        </p>
+      </div>
+
+      <div class="donate-layout">
+        <article class="card donate-card">
+          <h3>Đô nét cho dự án “Nuôi Kiên”.</h3>
+          <p>
+            Mỗi lượt donate là thêm một ít caffeine tinh thần để Kiên tiếp tục build,
+            fix bug và giả vờ rằng "em không thức tới 2 giờ sáng đâu".
+          </p>
+
+          <div class="donate-info">
+            <div class="donate-row">
+              <small>Số tài khoản</small>
+              <strong>0345864723</strong>
+            </div>
+
+            <div class="donate-row">
+              <small>Chủ tài khoản</small>
+              <strong>Vũ Xuân Kiên</strong>
+            </div>
+
+            <div class="donate-row">
+              <small>Nội dung chuyển khoản</small>
+              <strong>Đô nét cho dự án "Nuôi Kiên"</strong>
+            </div>
+          </div>
+
+          <div class="fun-note">
+            Ghi chú vui: donate không đảm bảo bug biến mất ngay, nhưng có thể giúp tác giả bớt hoang mang khi bug xuất hiện.
+          </div>
+        </article>
+
+        <aside class="card qr-wrap">
+          <div class="qr-box">
+            <img
+              src="https://f64-zpg-r.zdn.vn/jpg/622453088088088992/c1ec726002ef83b1dafe.jpg"
+              alt="Mã QR quyên góp Nuôi Kiên"
+              referrerpolicy="no-referrer"
+            >
+          </div>
+          <div class="qr-caption">
+            Quét mã để tiếp tế cho “Nuôi Kiên”. Nếu scan xong mà ví hơi nhẹ đi một chút, đó là dấu hiệu hệ thống hoạt động tốt.
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="container reveal">
+      <div class="contact">
+        <div>
+          <span class="kicker" style="color:#0b0611">05 / Connect</span>
+          <h2>Kết nối với Xuankiendev.</h2>
+          <p>
+            Zalo là kênh liên hệ chính. GitHub là nơi xem những gì tôi đang xây.
+            Donate là nơi thể hiện rằng bạn tin vào tương lai no bụng của nhà phát triển này.
+          </p>
+        </div>
+
+        <div class="contact-actions">
+          <a class="btn btn-main" href="https://zalo.me/0913288691" target="_blank" rel="noopener noreferrer">
+            Zalo 0913288691 ↗
+          </a>
+          <a class="btn btn-ghost" href="https://github.com/Xuankiendev" target="_blank" rel="noopener noreferrer">
+            GitHub ↗
+          </a>
+          <a class="btn btn-ghost" href="https://www.facebook.com/share/18ZGPAC3iU/" target="_blank" rel="noopener noreferrer">
+            Facebook ↗
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <div class="footer-inner">
+      <span>© <span id="year"></span> Vũ Xuân Kiên · Xuankiendev.</span>
+      <span>Not a résumé. A digital identity with a donation corner.</span>
+    </div>
+  </footer>
+
+  <script>
+    const GITHUB_USERNAME = "Xuankiendev";
+
+    const isMobileDevice =
+      window.matchMedia("(pointer: coarse)").matches ||
+      window.innerWidth <= 768;
+
+    const prefersReducedMotion =
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const yearElement = document.getElementById("year");
+    const typingElement = document.querySelector("[data-typing]");
+    const activityGridElement = document.getElementById("activity-grid");
+    const activityLabelElement = document.getElementById("activity-label");
+    const githubNameElement = document.getElementById("github-name");
+    const githubAvatarElements =
+      document.querySelectorAll("[data-github-avatar]");
+    const repositoriesElement = document.getElementById("repo-count");
+    const followersElement = document.getElementById("follower-count");
+    const followingElement = document.getElementById("following-count");
+    const readmeShellElement = document.getElementById("readme-shell");
+    const effectsToggleElement = document.getElementById("fx-toggle");
+    const effectsCanvas = document.getElementById("fx-canvas");
+
+    yearElement.textContent = new Date().getFullYear();
+
+    const typingPhrases = [
+      "JavaScript · Bot · Automation.",
+      "Building a personal brand in public.",
+      "Code, experiments and digital identity.",
+      "Có bug thì sửa, có vui thì giữ."
+    ];
+
+    let currentPhraseIndex = 0;
+    let currentCharacterIndex = 0;
+    let isDeletingText = false;
+
+    function runTypingEffect() {
+      if (prefersReducedMotion) {
+        typingElement.textContent = typingPhrases[0];
+        return;
+      }
+
+      const currentPhrase = typingPhrases[currentPhraseIndex];
+      typingElement.textContent = currentPhrase.slice(0, currentCharacterIndex);
+
+      if (!isDeletingText && currentCharacterIndex < currentPhrase.length) {
+        currentCharacterIndex += 1;
+        window.setTimeout(runTypingEffect, 58);
+        return;
+      }
+
+      if (!isDeletingText) {
+        isDeletingText = true;
+        window.setTimeout(runTypingEffect, 1350);
+        return;
+      }
+
+      if (currentCharacterIndex > 0) {
+        currentCharacterIndex -= 1;
+        window.setTimeout(runTypingEffect, 30);
+        return;
+      }
+
+      isDeletingText = false;
+      currentPhraseIndex = (currentPhraseIndex + 1) % typingPhrases.length;
+      window.setTimeout(runTypingEffect, 220);
+    }
+
+    runTypingEffect();
+
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
+
+          entry.target.classList.add("show");
+          revealObserver.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    document.querySelectorAll(".reveal").forEach((element) => {
+      revealObserver.observe(element);
+    });
+
+    const fallbackActivityLevels = [
+      0, 1, 0, 2, 0, 1, 3, 0, 0, 1, 2, 0,
+      4, 1, 0, 2, 0, 1, 1, 0, 3, 2, 0, 0,
+      1, 0, 2, 4, 0, 1, 0, 3, 1, 0, 2, 0,
+      1, 4, 2, 0, 0, 1, 3, 0, 2, 1, 0, 4,
+      0, 2, 1, 0, 3, 1, 2, 0, 4, 1, 0, 2,
+      3, 0, 1, 0, 2, 4, 1, 0, 3, 2, 0, 1,
+      4, 0, 2, 1, 0, 3, 0, 4, 1, 2, 0, 3
+    ];
+
+    function renderActivityGrid(activityLevels) {
+      activityGridElement.innerHTML = "";
+
+      activityLevels.slice(0, 84).forEach((activityLevel) => {
+        const activityCell = document.createElement("span");
+        activityCell.className = "activity-cell" + (activityLevel ? " lv" + activityLevel : "");
+        activityGridElement.appendChild(activityCell);
+      });
+    }
+
+    renderActivityGrid(fallbackActivityLevels);
+
+    async function loadGithubData() {
+      try {
+        const profileUrl = `https://api.github.com/users/${GITHUB_USERNAME}`;
+        const repositoriesUrl =
+          `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`;
+        const eventsUrl =
+          `https://api.github.com/users/${GITHUB_USERNAME}/events/public?per_page=100`;
+
+        const [
+          profileResponse,
+          repositoriesResponse,
+          eventsResponse
+        ] = await Promise.all([
+          window.fetch(profileUrl),
+          window.fetch(repositoriesUrl),
+          window.fetch(eventsUrl)
+        ]);
+
+        if (!profileResponse.ok || !repositoriesResponse.ok) {
+          throw new Error("GitHub API unavailable");
+        }
+
+        const profileData = await profileResponse.json();
+        const repositoriesData = await repositoriesResponse.json();
+
+        githubNameElement.textContent = profileData.name || "Vũ Xuân Kiên";
+
+        githubAvatarElements.forEach((avatarElement) => {
+          avatarElement.src = profileData.avatar_url;
+        });
+
+        repositoriesElement.textContent = profileData.public_repos ?? 41;
+        followersElement.textContent = profileData.followers ?? 6;
+        followingElement.textContent = profileData.following ?? 2;
+
+        const repositoryMap = new Map(
+          repositoriesData.map((repository) => [repository.name, repository])
+        );
+
+        document.querySelectorAll("[data-repo]").forEach((repositoryCard) => {
+          const repositoryName = repositoryCard.dataset.repo;
+          const repository = repositoryMap.get(repositoryName);
+
+          if (!repository) {
+            return;
+          }
+
+          const languageElement = repositoryCard.querySelector("[data-language]");
+          const updatedElement = repositoryCard.querySelector("[data-updated]");
+
+          languageElement.textContent = repository.language || "Code";
+
+          const updatedDate = new Date(repository.updated_at);
+          const formattedDate = new Intl.DateTimeFormat(
+            "vi-VN",
+            { day: "2-digit", month: "2-digit", year: "numeric" }
+          ).format(updatedDate);
+
+          updatedElement.textContent = `Updated ${formattedDate}`;
+        });
+
+        if (!eventsResponse.ok) {
+          return;
+        }
+
+        const publicEvents = await eventsResponse.json();
+        const activityCounts = new Array(84).fill(0);
+
+        publicEvents.forEach((event) => {
+          const eventTime = new Date(event.created_at);
+          const ageInMilliseconds = Date.now() - eventTime.getTime();
+          const ageInDays = Math.floor(ageInMilliseconds / 86400000);
+          const isInsideGrid = ageInDays >= 0 && ageInDays < 84;
+
+          if (!isInsideGrid) {
+            return;
+          }
+
+          const gridIndex = 83 - ageInDays;
+          activityCounts[gridIndex] += 1;
+        });
+
+        const liveActivityLevels = activityCounts.map((activityCount) => {
+          if (activityCount === 0) return 0;
+          if (activityCount === 1) return 1;
+          if (activityCount <= 3) return 2;
+          if (activityCount <= 6) return 3;
+          return 4;
+        });
+
+        const hasLiveActivity = liveActivityLevels.some((activityLevel) => activityLevel > 0);
+
+        if (!hasLiveActivity) {
+          return;
+        }
+
+        renderActivityGrid(liveActivityLevels);
+        activityLabelElement.textContent = `${publicEvents.length} recent public events`;
+      } catch (error) {
+        activityLabelElement.textContent = "offline fallback";
+        console.warn("Không thể tải GitHub API:", error);
+      }
+    }
+
+    loadGithubData();
+
+    let tiltAnimationFrameId = null;
+
+    function updateReadmeTilt(event) {
+      if (tiltAnimationFrameId !== null) {
+        return;
+      }
+
+      tiltAnimationFrameId = window.requestAnimationFrame(() => {
+        const cardBounds = readmeShellElement.getBoundingClientRect();
+        const pointerX = event.clientX - cardBounds.left;
+        const pointerY = event.clientY - cardBounds.top;
+
+        const rotateY = ((pointerX / cardBounds.width) - 0.5) * 7;
+        const rotateX = ((pointerY / cardBounds.height) - 0.5) * -7;
+
+        readmeShellElement.style.transform =
+          "perspective(1000px) " +
+          `rotateX(${rotateX}deg) ` +
+          `rotateY(${rotateY}deg)`;
+
+        tiltAnimationFrameId = null;
+      });
+    }
+
+    function resetReadmeTilt() {
+      readmeShellElement.style.transform = "";
+    }
+
+    if (!isMobileDevice && !prefersReducedMotion) {
+      readmeShellElement.addEventListener("mousemove", updateReadmeTilt);
+      readmeShellElement.addEventListener("mouseleave", resetReadmeTilt);
+    }
+
+    const effectsContext = effectsCanvas.getContext("2d", { alpha: true });
+    const canvasPixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
+
+    const particleColors = [
+      "#ff3da6",
+      "#31e7ff",
+      "#ffe044",
+      "#a766ff"
+    ];
+
+    let particles = [];
+    let particlesAreRunning = !prefersReducedMotion;
+    let particleAnimationFrameId = null;
+    let previousParticleFrameTime = 0;
+    let canvasResizeTimerId = null;
+
+    function createParticles() {
+      const particleCount = isMobileDevice ? 14 : 28;
+
+      particles = Array.from({ length: particleCount }, () => ({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        radius: Math.random() * 1.4 + 0.5,
+        velocityX: (Math.random() - 0.5) * 0.16,
+        velocityY: (Math.random() - 0.5) * 0.16,
+        color: particleColors[Math.floor(Math.random() * particleColors.length)],
+        alpha: Math.random() * 0.5 + 0.2
+      }));
+    }
+
+    function resizeEffectsCanvas() {
+      effectsCanvas.width = Math.round(window.innerWidth * canvasPixelRatio);
+      effectsCanvas.height = Math.round(window.innerHeight * canvasPixelRatio);
+      effectsCanvas.style.width = `${window.innerWidth}px`;
+      effectsCanvas.style.height = `${window.innerHeight}px`;
+
+      effectsContext.setTransform(
+        canvasPixelRatio,
+        0,
+        0,
+        canvasPixelRatio,
+        0,
+        0
+      );
+
+      createParticles();
+    }
+
+    function updateParticlePosition(particle) {
+      particle.x += particle.velocityX;
+      particle.y += particle.velocityY;
+
+      if (particle.x < -5) {
+        particle.x = window.innerWidth + 5;
+      }
+
+      if (particle.x > window.innerWidth + 5) {
+        particle.x = -5;
+      }
+
+      if (particle.y < -5) {
+        particle.y = window.innerHeight + 5;
+      }
+
+      if (particle.y > window.innerHeight + 5) {
+        particle.y = -5;
+      }
+    }
+
+    function drawParticle(particle) {
+      effectsContext.globalAlpha = particle.alpha;
+      effectsContext.fillStyle = particle.color;
+      effectsContext.beginPath();
+      effectsContext.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+      effectsContext.fill();
+    }
+
+    function drawParticleFrame(currentTime) {
+      particleAnimationFrameId = null;
+
+      if (!particlesAreRunning) {
+        return;
+      }
+
+      particleAnimationFrameId = window.requestAnimationFrame(drawParticleFrame);
+
+      const millisecondsSinceLastFrame = currentTime - previousParticleFrameTime;
+      const shouldSkipFrame = millisecondsSinceLastFrame < 33;
+
+      if (shouldSkipFrame) {
+        return;
+      }
+
+      previousParticleFrameTime = currentTime;
+
+      effectsContext.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+      particles.forEach((particle) => {
+        updateParticlePosition(particle);
+        drawParticle(particle);
+      });
+
+      effectsContext.globalAlpha = 1;
+    }
+
+    function startParticleAnimation() {
+      if (particleAnimationFrameId !== null || !particlesAreRunning) {
+        return;
+      }
+
+      particleAnimationFrameId = window.requestAnimationFrame(drawParticleFrame);
+    }
+
+    function stopParticleAnimation() {
+      if (particleAnimationFrameId !== null) {
+        window.cancelAnimationFrame(particleAnimationFrameId);
+        particleAnimationFrameId = null;
+      }
+
+      effectsContext.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    }
+
+    resizeEffectsCanvas();
+    startParticleAnimation();
+
+    window.addEventListener("resize", () => {
+      window.clearTimeout(canvasResizeTimerId);
+      canvasResizeTimerId = window.setTimeout(resizeEffectsCanvas, 180);
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        particlesAreRunning = false;
+        stopParticleAnimation();
+        return;
+      }
+
+      const isLiteMode = document.body.classList.contains("lite");
+      particlesAreRunning = !prefersReducedMotion && !isLiteMode;
+      startParticleAnimation();
+    });
+
+    effectsToggleElement.addEventListener("click", () => {
+      const isLiteMode = document.body.classList.toggle("lite");
+
+      effectsToggleElement.textContent = isLiteMode ? "Full FX" : "Lite FX";
+      effectsToggleElement.setAttribute("aria-pressed", String(isLiteMode));
+
+      particlesAreRunning = !isLiteMode && !document.hidden && !prefersReducedMotion;
+
+      if (particlesAreRunning) {
+        startParticleAnimation();
+        return;
+      }
+
+      stopParticleAnimation();
+    });
+  </script>
+</body>
+</html>
