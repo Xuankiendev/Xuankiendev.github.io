@@ -5,13 +5,11 @@
 @tailwind utilities;
 
 :root {
-  --bg-deep: #06030d;
-  --neon-pink: #ff007f;
-  --neon-cyan: #00f2fe;
-  --neon-yellow: #ffe044;
-  --neon-purple: #a855f7;
-  --neon-lime: #00ff66;
+  --bg-deep: #090a0f;
+  --surface: #0e111a;
+  --surface-hover: #131722;
   --heat: #fa5d19;
+  --heat-light: #ff7438;
 }
 
 * {
@@ -26,7 +24,7 @@ html {
 body {
   min-height: 100vh;
   background-color: var(--bg-deep);
-  color: #f8f2ff;
+  color: #ededf0;
   font-family: "Be Vietnam Pro", system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
   line-height: 1.6;
@@ -34,145 +32,68 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Dynamic Aurora Borealis Background Mesh */
-.aurora-mesh {
+/* Subtle Ambient Gradient Light (Linear / Evondev style) */
+.ambient-subtle-glow {
   position: fixed;
-  inset: 0;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(250, 93, 25, 0.08) 0%, rgba(100, 115, 255, 0.04) 40%, transparent 70%);
   pointer-events: none;
   z-index: 0;
-  overflow: hidden;
+  filter: blur(90px);
 }
 
-.aurora-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(85px);
-  opacity: 0.35;
-  will-change: transform;
-}
-
-.orb-pink {
-  width: 55vw;
-  height: 55vw;
-  max-width: 650px;
-  max-height: 650px;
-  top: -10vh;
-  left: -10vw;
-  background: radial-gradient(circle, #ff007f 0%, #a855f7 60%, transparent 80%);
-  animation: floatOrbA 16s ease-in-out infinite alternate;
-}
-
-.orb-cyan {
-  width: 50vw;
-  height: 50vw;
-  max-width: 600px;
-  max-height: 600px;
-  top: 30vh;
-  right: -10vw;
-  background: radial-gradient(circle, #00f2fe 0%, #0068ff 50%, transparent 80%);
-  animation: floatOrbB 18s ease-in-out infinite alternate;
-}
-
-.orb-yellow {
-  width: 45vw;
-  height: 45vw;
-  max-width: 500px;
-  max-height: 500px;
-  bottom: 10vh;
-  left: 20vw;
-  background: radial-gradient(circle, #fa5d19 0%, #ff007f 60%, transparent 80%);
-  animation: floatOrbC 20s ease-in-out infinite alternate;
-}
-
-@keyframes floatOrbA {
-  0% { transform: translate3d(0, 0, 0) scale(1); }
-  100% { transform: translate3d(12vw, 15vh, 0) scale(1.15); }
-}
-
-@keyframes floatOrbB {
-  0% { transform: translate3d(0, 0, 0) scale(1); }
-  100% { transform: translate3d(-10vw, -12vh, 0) scale(0.9); }
-}
-
-@keyframes floatOrbC {
-  0% { transform: translate3d(0, 0, 0) scale(0.95); }
-  100% { transform: translate3d(15vw, -10vh, 0) scale(1.2); }
-}
-
-/* Background Cyber Grid lines */
-.cyber-bg-grid {
+/* Precision Tech Grid Lines */
+.precision-grid {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 1;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 52px 52px;
-  mask-image: radial-gradient(ellipse at 50% 30%, #000 40%, transparent 85%);
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at 50% 25%, #000 35%, transparent 80%);
 }
 
-/* Animated Rainbow Chroma Border */
-.rainbow-border {
-  position: relative;
-  background: #110822;
-  border-radius: 1.5rem;
+/* Luxury Glass Card (Raycast / Apple Style) */
+.luxury-card {
+  background: rgba(14, 17, 26, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-.rainbow-border::before {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  border-radius: 1.6rem;
-  background: linear-gradient(90deg, #ff007f, #00f2fe, #ffe044, #a855f7, #00ff66, #ff007f);
-  background-size: 300% 300%;
-  animation: rainbowRotate 5s linear infinite;
-  z-index: -1;
-  opacity: 0.75;
-}
-
-@keyframes rainbowRotate {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Cyber Neon Text Glow */
-.neon-glow-pink {
-  text-shadow: 0 0 10px rgba(255, 0, 127, 0.7), 0 0 25px rgba(255, 0, 127, 0.4);
-}
-
-.neon-glow-cyan {
-  text-shadow: 0 0 10px rgba(0, 242, 254, 0.7), 0 0 25px rgba(0, 242, 254, 0.4);
-}
-
-.neon-glow-yellow {
-  text-shadow: 0 0 10px rgba(255, 224, 68, 0.7), 0 0 25px rgba(255, 224, 68, 0.4);
+.luxury-card:hover {
+  border-color: rgba(250, 93, 25, 0.35);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 25px rgba(250, 93, 25, 0.08);
 }
 
 /* Clean Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #080312;
+  background: #090a0f;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #ff007f, #00f2fe);
+  background: #232735;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #ff007f;
+  background: #fa5d19;
 }
 
-/* Selection Color */
 ::selection {
-  background: #ff007f;
+  background: #fa5d19;
   color: #ffffff;
 }
 

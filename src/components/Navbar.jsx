@@ -24,7 +24,6 @@ export default function Navbar() {
 
   const navLinks = [
     { label: "Bản sắc", href: "#identity", icon: Sparkles },
-    { label: "3D Lab", href: "#lab3d", icon: Box },
     { label: "Dự án", href: "#projects", icon: Code2 },
     { label: "Terminal", href: "#terminal", icon: Terminal },
     { label: "Nuôi Kiên", href: "#donate", icon: Heart },
