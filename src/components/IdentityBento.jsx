@@ -69,7 +69,7 @@ export default function IdentityBento() {
       {/* Bento Grid Container */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
         {/* Card 1: Core Philosophy (7 cols) */}
-        <div className="md:col-span-7 rounded-3xl p-6 sm:p-8 bg-[#110c1f]/80 border border-white/10 hover:border-orange-500/40 shadow-2xl backdrop-blur-xl transition-all duration-300 flex flex-col justify-between group">
+        <div className="md:col-span-7 rounded-3xl p-6 sm:p-8 bg-black/40 border border-white/10 hover:border-pink-500/50 shadow-2xl backdrop-blur-xl transition-all duration-300 flex flex-col justify-between group">
           <div>
             <div className="flex items-center justify-between pb-4 border-b border-white/5">
               <span className="font-mono text-xs text-orange-400 uppercase tracking-widest font-semibold flex items-center gap-1.5">
@@ -120,7 +120,7 @@ export default function IdentityBento() {
         </div>
 
         {/* Card 2: Interactive Tech Arsenal (5 cols) */}
-        <div className="md:col-span-5 rounded-3xl p-6 sm:p-8 bg-[#110c1f]/80 border border-white/10 hover:border-cyan-500/40 shadow-2xl backdrop-blur-xl transition-all duration-300 flex flex-col justify-between">
+        <div className="md:col-span-5 rounded-3xl p-6 sm:p-8 bg-black/40 border border-white/10 hover:border-cyan-500/50 shadow-2xl backdrop-blur-xl transition-all duration-300 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between pb-4 border-b border-white/5">
               <span className="font-mono text-xs text-cyan-400 uppercase tracking-widest font-semibold flex items-center gap-1.5">
@@ -181,7 +181,7 @@ export default function IdentityBento() {
         </div>
 
         {/* Card 3: Zalo Bot PM2 Cluster Telemetry (5 cols) */}
-        <div className="md:col-span-5 rounded-3xl p-6 sm:p-8 bg-[#110c1f]/80 border border-white/10 hover:border-pink-500/40 shadow-2xl backdrop-blur-xl transition-all duration-300 flex flex-col justify-between">
+        <div className="md:col-span-5 rounded-3xl p-6 sm:p-8 bg-black/40 border border-white/10 hover:border-pink-500/50 shadow-2xl backdrop-blur-xl transition-all duration-300 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between pb-4 border-b border-white/5">
               <span className="font-mono text-xs text-pink-400 uppercase tracking-widest font-semibold flex items-center gap-1.5">
@@ -224,7 +224,7 @@ export default function IdentityBento() {
         </div>
 
         {/* Card 4: GitHub Matrix Heatmap (7 cols) */}
-        <div className="md:col-span-7 rounded-3xl p-6 sm:p-8 bg-[#110c1f]/80 border border-white/10 hover:border-emerald-500/40 shadow-2xl backdrop-blur-xl transition-all duration-300 flex flex-col justify-between">
+        <div className="md:col-span-7 rounded-3xl p-6 sm:p-8 bg-black/40 border border-white/10 hover:border-emerald-500/50 shadow-2xl backdrop-blur-xl transition-all duration-300 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between pb-4 border-b border-white/5">
               <span className="font-mono text-xs text-emerald-400 uppercase tracking-widest font-semibold flex items-center gap-1.5">

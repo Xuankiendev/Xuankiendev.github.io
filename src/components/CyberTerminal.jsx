@@ -72,7 +72,7 @@ export default function CyberTerminal() {
       </div>
 
       {/* Terminal Container Box */}
-      <div className="rounded-3xl bg-[#090611] border border-white/10 shadow-[0_20px_70px_rgba(0,0,0,0.8)] overflow-hidden backdrop-blur-2xl">
+      <div className="rounded-3xl bg-black/50 border border-white/10 shadow-[0_20px_70px_rgba(0,0,0,0.8)] overflow-hidden backdrop-blur-2xl">
         {/* Terminal Header Bar */}
         <div className="px-4 py-3 bg-[#130d22] border-b border-white/10 flex items-center justify-between">
           <div className="flex items-center gap-2">
