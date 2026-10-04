@@ -119,9 +119,19 @@ function ProjectCard({ project, onSelect }) {
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative rounded-3xl p-6 sm:p-7 bg-[#120c22]/85 border border-white/10 hover:border-orange-500/50 shadow-2xl backdrop-blur-xl transition-all duration-150 ease-out flex flex-col justify-between group overflow-hidden"
-      style={{ transformStyle: "preserve-3d" }}
+      className="relative rounded-3xl p-6 sm:p-7 bg-[#100720]/90 border transition-all duration-200 ease-out flex flex-col justify-between group overflow-hidden"
+      style={{
+        transformStyle: "preserve-3d",
+        borderColor: `${project.accentColor}50`,
+        boxShadow: `0 15px 45px -10px ${project.accentColor}30`
+      }}
     >
+      {/* Dynamic Colored Ambient Corner Glow */}
+      <div
+        className="pointer-events-none absolute -top-16 -right-16 w-44 h-44 rounded-full blur-3xl opacity-30 transition-opacity group-hover:opacity-60"
+        style={{ background: project.accentColor }}
+      />
+
       {/* Holographic Mouse Glare Layer */}
       <div
         className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-300"
@@ -132,19 +142,26 @@ function ProjectCard({ project, onSelect }) {
 
       {/* Top Banner & Badge */}
       <div className="relative z-10">
-        <div className="flex items-center justify-between gap-3 pb-4 border-b border-white/5">
-          <span className="px-2.5 py-1 rounded-lg bg-orange-500/15 border border-orange-500/30 text-orange-400 font-mono text-xs font-bold">
-            {project.badge}
+        <div className="flex items-center justify-between gap-3 pb-4 border-b border-white/10">
+          <span
+            className="px-3 py-1 rounded-xl font-mono text-xs font-black border shadow-sm"
+            style={{
+              background: `${project.accentColor}20`,
+              borderColor: `${project.accentColor}60`,
+              color: project.accentColor
+            }}
+          >
+            ✦ {project.badge}
           </span>
-          <span className="font-mono text-xs text-zinc-400">
+          <span className="font-mono text-xs text-zinc-300 font-semibold">
             {project.language}
           </span>
         </div>
 
         {/* Project Title */}
-        <h3 className="mt-5 text-xl sm:text-2xl font-bold text-white group-hover:text-orange-400 transition-colors flex items-center justify-between">
-          <span>{project.title}</span>
-          <Star className="w-4 h-4 text-yellow-400 shrink-0 opacity-70 group-hover:opacity-100" />
+        <h3 className="mt-5 text-xl sm:text-2xl font-black text-white group-hover:text-yellow-300 transition-colors flex items-center justify-between">
+          <span className="tracking-tight">{project.title}</span>
+          <Star className="w-5 h-5 text-yellow-400 shrink-0 group-hover:rotate-45 group-hover:scale-125 transition-transform" />
         </h3>
 
         {/* Description */}

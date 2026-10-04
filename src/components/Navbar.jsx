@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Volume2, VolumeX, Sparkles, Terminal, Code2, Heart, MessageSquare } from "lucide-react";
+import { Volume2, VolumeX, Sparkles, Terminal, Code2, Heart, MessageSquare, Box } from "lucide-react";
 import { GithubIcon } from "./SocialIcons";
 import { PERSONAL_INFO, SOCIAL_LINKS } from "../data/portfolioData";
 import { toggleAudio, getAudioState, playCyberClick } from "../utils/soundFX";
@@ -24,6 +24,7 @@ export default function Navbar() {
 
   const navLinks = [
     { label: "Bản sắc", href: "#identity", icon: Sparkles },
+    { label: "3D Lab", href: "#lab3d", icon: Box },
     { label: "Dự án", href: "#projects", icon: Code2 },
     { label: "Terminal", href: "#terminal", icon: Terminal },
     { label: "Nuôi Kiên", href: "#donate", icon: Heart },

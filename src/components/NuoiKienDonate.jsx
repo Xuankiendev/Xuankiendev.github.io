@@ -51,9 +51,9 @@ export default function NuoiKienDonate() {
         {/* Left: Cyber Bank Card & Caffeine Meter (7 cols) */}
         <div className="lg:col-span-7 space-y-6">
           {/* Cyber Bank Card (ATM Style) */}
-          <div className="relative rounded-3xl p-7 bg-gradient-to-tr from-[#1b122c] via-[#211637] to-[#160d26] border border-orange-500/30 shadow-[0_20px_60px_rgba(250,93,25,0.15)] overflow-hidden group">
+          <div className="relative rainbow-border p-7 shadow-[0_20px_70px_rgba(255,224,68,0.25)] overflow-hidden group">
             {/* Background Hologram Mesh */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-orange-500/20 to-pink-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-0 right-0 w-72 h-72 bg-gradient-to-br from-yellow-500/25 via-pink-500/20 to-cyan-500/20 rounded-full blur-3xl pointer-events-none" />
 
             <div className="relative z-10">
               <div className="flex items-center justify-between">
