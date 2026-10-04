@@ -87,10 +87,10 @@ export default function NuoiKienDonate() {
             </button>
           </div>
 
-          {/* Cyber Bank Card (Matte Titanium Luxury Style) */}
-          <div className="relative rounded-3xl p-7 bg-gradient-to-tr from-[#10131d] via-[#141824] to-[#0c0e15] border border-amber-500/30 shadow-[0_20px_50px_rgba(0,0,0,0.6)] overflow-hidden group">
+          {/* Cyber Bank Card (Matte Titanium Luxury Style with Holo Edge) */}
+          <div className="relative holo-card p-7 border-amber-500/40 shadow-[0_20px_60px_rgba(255,180,0,0.15)] overflow-hidden group">
             {/* Subtle Gold Shimmer Accent */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/15 rounded-full blur-3xl pointer-events-none" />
 
             <div className="relative z-10">
               <div className="flex items-center justify-between">

@@ -11,16 +11,22 @@ import ContactFooter from "./components/ContactFooter";
 
 export default function App() {
   return (
-    <div className="relative min-h-screen text-[#ededf0] selection:bg-[#fa5d19] selection:text-white bg-[#090a0f]">
-      {/* 3D WebGL Titanium Gyroscope & Floating Dust */}
+    <div className="relative min-h-screen text-[#f6f0ff] selection:bg-[#ff007f] selection:text-white bg-[#06020c]">
+      {/* 3D WebGL Holographic Sculpture & Starfield */}
       <ThreeScene />
 
-      {/* Subtle Laser Cursor */}
+      {/* Laser Crosshair Cursor */}
       <CustomCursor />
 
-      {/* Subtle Ambient Light & Tech Grid */}
-      <div className="ambient-subtle-glow" aria-hidden="true" />
-      <div className="precision-grid" aria-hidden="true" />
+      {/* Dynamic Aurora Plasma Light Blobs (Multi-color Ambient Glow) */}
+      <div className="aurora-plasma-bg" aria-hidden="true">
+        <div className="aurora-blob blob-1" />
+        <div className="aurora-blob blob-2" />
+        <div className="aurora-blob blob-3" />
+      </div>
+
+      {/* Tech Matrix Grid */}
+      <div className="cyber-matrix-grid" aria-hidden="true" />
 
       {/* Main Content Layout */}
       <div className="relative z-10 flex flex-col min-h-screen">

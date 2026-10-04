@@ -119,11 +119,11 @@ function ProjectCard({ project, onSelect }) {
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative rounded-3xl p-6 sm:p-7 bg-[#100720]/90 border transition-all duration-200 ease-out flex flex-col justify-between group overflow-hidden"
+      className="holo-card p-6 sm:p-7 flex flex-col justify-between group overflow-hidden"
       style={{
         transformStyle: "preserve-3d",
-        borderColor: `${project.accentColor}50`,
-        boxShadow: `0 15px 45px -10px ${project.accentColor}30`
+        borderColor: `${project.accentColor}60`,
+        boxShadow: `0 20px 50px -10px ${project.accentColor}40`
       }}
     >
       {/* Dynamic Colored Ambient Corner Glow */}
