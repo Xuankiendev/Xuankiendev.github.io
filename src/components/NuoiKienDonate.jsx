@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Coffee, Copy, Check, QrCode, Heart, Sparkles, Shield, CreditCard, ExternalLink } from "lucide-react";
+import { Coffee, Copy, Check, QrCode, Heart, Sparkles, Shield, CreditCard, ExternalLink, Smartphone } from "lucide-react";
+import { ZaloPayIcon } from "./SocialIcons";
 import { BANK_INFO, PERSONAL_INFO } from "../data/portfolioData";
 import { playCyberClick, playCyberSuccess } from "../utils/soundFX";
 import confetti from "canvas-confetti";
 
 export default function NuoiKienDonate() {
   const [copiedField, setCopiedField] = useState(null);
+  const [paymentMethod, setPaymentMethod] = useState("bank"); // "bank" | "zalopay"
   const [selectedCaffeine, setSelectedCaffeine] = useState(BANK_INFO.caffeineOptions[0]);
   const [showQrModal, setShowQrModal] = useState(false);
 
@@ -42,7 +44,7 @@ export default function NuoiKienDonate() {
           Quỹ “<span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500">Nuôi Kiên</span>”.
         </h2>
         <p className="mt-3 text-zinc-400 text-sm sm:text-base max-w-2xl leading-relaxed">
-          Góc quyên góp hoàn toàn nghiêm túc về mặt kỹ thuật, nhưng hơi không nghiêm túc về mặt câu chữ. Mỗi lượt donate là thêm caffeine tinh thần để Kiên tiếp tục build, fix bug và giả vờ rằng "em không thức tới 2 giờ sáng đâu".
+          Góc quyên góp hoàn toàn nghiêm túc về mặt kỹ thuật, nhưng hơi không nghiêm túc về mặt câu chữ. Hỗ trợ qua tài khoản Ngân Hàng hoặc ví điện tử ZaloPay để tiếp tế caffeine cho Kiên tiếp tục build!
         </p>
       </div>
 
@@ -50,7 +52,42 @@ export default function NuoiKienDonate() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left: Cyber Bank Card & Caffeine Meter (7 cols) */}
         <div className="lg:col-span-7 space-y-6">
-          {/* Cyber Bank Card (ATM Style) */}
+          {/* Payment Method Switch Tabs */}
+          <div className="flex items-center gap-2 p-1.5 rounded-2xl bg-white/[0.04] border border-white/10 w-fit">
+            <button
+              type="button"
+              onClick={() => {
+                playCyberClick(700);
+                setPaymentMethod("bank");
+              }}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl font-mono text-xs font-bold transition-all ${
+                paymentMethod === "bank"
+                  ? "bg-orange-500 text-white shadow-[0_0_15px_rgba(250,93,25,0.4)]"
+                  : "text-zinc-400 hover:text-white"
+              }`}
+            >
+              <CreditCard className="w-3.5 h-3.5" />
+              <span>Tài Khoản Ngân Hàng</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                playCyberClick(750);
+                setPaymentMethod("zalopay");
+              }}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl font-mono text-xs font-bold transition-all ${
+                paymentMethod === "zalopay"
+                  ? "bg-[#00BE00] text-white shadow-[0_0_15px_rgba(0,190,0,0.4)]"
+                  : "text-zinc-400 hover:text-white"
+              }`}
+            >
+              <Smartphone className="w-3.5 h-3.5" />
+              <span>Ví ZaloPay</span>
+            </button>
+          </div>
+
+          {/* Cyber Bank Card (Matte Titanium Luxury Style) */}
           <div className="relative rounded-3xl p-7 bg-gradient-to-tr from-[#10131d] via-[#141824] to-[#0c0e15] border border-amber-500/30 shadow-[0_20px_50px_rgba(0,0,0,0.6)] overflow-hidden group">
             {/* Subtle Gold Shimmer Accent */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -58,20 +95,27 @@ export default function NuoiKienDonate() {
             <div className="relative z-10">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <CreditCard className="w-5 h-5 text-orange-400" />
-                  <span className="font-mono text-xs tracking-widest text-zinc-400 uppercase">
-                    NuoiKien Virtual Card
-                  </span>
+                  {paymentMethod === "zalopay" ? (
+                    <span className="flex items-center gap-1.5 text-xs font-mono font-bold text-emerald-400">
+                      <ZaloPayIcon className="w-5 h-5 rounded-md" />
+                      ZaloPay Official Wallet
+                    </span>
+                  ) : (
+                    <span className="flex items-center gap-1.5 text-xs font-mono font-bold text-orange-400">
+                      <CreditCard className="w-5 h-5" />
+                      Direct Bank Transfer
+                    </span>
+                  )}
                 </div>
-                <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                  Instant Support
+                <span className="font-mono text-xs font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                  {paymentMethod === "zalopay" ? "ZaloPay 24/7" : "Instant 24/7"}
                 </span>
               </div>
 
               {/* Account Number */}
               <div className="mt-8">
                 <span className="text-xs font-mono text-zinc-400 block mb-1">
-                  Số tài khoản nhận donate
+                  {paymentMethod === "zalopay" ? "Số điện thoại / ID ví ZaloPay" : "Số tài khoản ngân hàng"}
                 </span>
                 <div className="flex items-center gap-3">
                   <span className="text-2xl sm:text-3xl font-black font-mono tracking-wider text-white">
@@ -79,11 +123,15 @@ export default function NuoiKienDonate() {
                   </span>
                   <button
                     type="button"
-                    onClick={() => handleCopy(BANK_INFO.accountNumber, "stk")}
-                    className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-orange-500/20 hover:bg-orange-500/40 border border-orange-500/40 text-orange-300 font-mono text-xs font-bold transition-all hover:scale-105"
+                    onClick={() => handleCopy(BANK_INFO.accountNumber, paymentMethod)}
+                    className={`flex items-center gap-1 px-3 py-1.5 rounded-xl border font-mono text-xs font-bold transition-all hover:scale-105 ${
+                      paymentMethod === "zalopay"
+                        ? "bg-[#00BE00]/20 hover:bg-[#00BE00]/30 border-[#00BE00]/40 text-emerald-300"
+                        : "bg-orange-500/20 hover:bg-orange-500/40 border-orange-500/40 text-orange-300"
+                    }`}
                   >
-                    {copiedField === "stk" ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>{copiedField === "stk" ? "Đã chép STK" : "Chép STK"}</span>
+                    {copiedField === paymentMethod ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                    <span>{copiedField === paymentMethod ? "Đã sao chép" : paymentMethod === "zalopay" ? "Chép ZaloPay" : "Chép STK"}</span>
                   </button>
                 </div>
               </div>
@@ -91,14 +139,14 @@ export default function NuoiKienDonate() {
               {/* Account Name & Note */}
               <div className="mt-6 pt-5 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <span className="text-xs font-mono text-zinc-400 block">Chủ tài khoản</span>
+                  <span className="text-xs font-mono text-zinc-400 block">Chủ tài khoản / Ví</span>
                   <strong className="text-sm font-bold text-white uppercase mt-0.5 block">
                     {BANK_INFO.accountName}
                   </strong>
                 </div>
 
                 <div>
-                  <span className="text-xs font-mono text-zinc-400 block">Nội dung chuyển khoản</span>
+                  <span className="text-xs font-mono text-zinc-400 block">Nội dung chuyển</span>
                   <div className="flex items-center gap-2 mt-0.5">
                     <span className="text-xs font-mono text-zinc-200 truncate">
                       {BANK_INFO.defaultNote}
@@ -172,7 +220,7 @@ export default function NuoiKienDonate() {
         <div className="lg:col-span-5 rounded-3xl p-7 bg-[#110c1f]/85 border border-white/10 hover:border-orange-500/40 shadow-2xl backdrop-blur-xl flex flex-col items-center text-center">
           <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 mb-4">
             <QrCode className="w-4 h-4 text-orange-400" />
-            <span>QUÉT MÃ TIẾP TẾ “NUÔI KIÊN”</span>
+            <span>QUÉT MÃ NGÂN HÀNG & ZALOPAY</span>
           </div>
 
           {/* QR Image Box */}

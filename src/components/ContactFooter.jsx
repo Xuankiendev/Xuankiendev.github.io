@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { MessageSquare, Mail, ArrowUp, Clock, Globe, Shield, Terminal, Heart } from "lucide-react";
-import { GithubIcon, FacebookIcon, ZaloIcon } from "./SocialIcons";
+import { GithubIcon, TikTokIcon, ZaloIcon } from "./SocialIcons";
 import { SOCIAL_LINKS, PERSONAL_INFO } from "../data/portfolioData";
 import { playCyberClick } from "../utils/soundFX";
 
@@ -50,13 +50,13 @@ export default function ContactFooter() {
       btnText: "Ghé thăm GitHub"
     },
     {
-      label: "Facebook",
-      sub: "Tài khoản mạng xã hội cá nhân",
-      value: SOCIAL_LINKS.facebook.value,
-      url: SOCIAL_LINKS.facebook.url,
-      icon: FacebookIcon,
-      color: "text-blue-400",
-      btnText: "Kết nối Facebook"
+      label: "TikTok Channel",
+      sub: "Kênh chia sẻ video kỹ thuật & bot code",
+      value: SOCIAL_LINKS.tiktok.value,
+      url: SOCIAL_LINKS.tiktok.url,
+      icon: TikTokIcon,
+      color: "text-pink-400",
+      btnText: "Xem TikTok @vxkitvn"
     },
     {
       label: "Email Liên Hệ",

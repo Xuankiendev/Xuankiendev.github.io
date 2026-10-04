@@ -30,11 +30,11 @@ export const SOCIAL_LINKS = {
     url: "https://github.com/Xuankiendev",
     action: "Xem GitHub"
   },
-  facebook: {
-    label: "Facebook",
-    value: "Vũ Xuân Kiên",
-    url: "https://www.facebook.com/share/18ZGPAC3iU/",
-    action: "Kết nối Facebook"
+  tiktok: {
+    label: "TikTok",
+    value: "@vxkitvn",
+    url: "https://www.tiktok.com/@vxkitvn",
+    action: "Ghé thăm TikTok"
   },
   email: {
     label: "Email",
@@ -47,6 +47,9 @@ export const SOCIAL_LINKS = {
 export const BANK_INFO = {
   accountNumber: "0345864723",
   accountName: "VŨ XUÂN KIÊN",
+  bankName: "Ngân Hàng",
+  zaloPayNumber: "0345864723",
+  zaloPayName: "VŨ XUÂN KIÊN",
   defaultNote: 'Đô nét cho dự án "Nuôi Kiên"',
   caffeineOptions: [
     { label: "1 Ly Cafe Đen", amount: "25.000đ", value: 25000, desc: "Tăng 2 tiếng tập trung fix bug" },
@@ -156,6 +159,6 @@ export const TERMINAL_COMMANDS = {
   skills: "Kỹ năng chuyên sâu:\n• Backend: Node.js, Express, PM2 cluster, SQLite, Knex\n• Automation: Zalo Protocol, Web scraping, Puppeteer, Task runner\n• Graphics: Three.js, React 19, Skia Canvas, Cyberpunk UI\n• Tooling: Git, Linux VPS, Vite, Tailwind CSS",
   projects: "Dự án chính:\n1. botjs-vxk: Bot Zalo unofficial đa năng (Featured)\n2. duoi-hinh-bat-chu: Game giải đố JavaScript siêu cuốn\n3. xuankiendev.github.io: Không gian 3D web cá nhân thế hệ mới\n4. api-vxk1997: Bộ microservices tiện ích cho bot",
   stats: "Hệ thống số liệu:\n• Uptime bot cluster: 99.9%\n• Sự kiện tin nhắn xử lý/ngày: 100,000+\n• Public repos: 40+\n• Số cốc cafe tiêu thụ/tuần: Không đếm xuể",
-  donate: "Ủng hộ dự án 'Nuôi Kiên':\n• Ngân hàng: STK 0345864723\n• Chủ tài khoản: VŨ XUÂN KIÊN\n• Nội dung: Đô nét cho dự án Nuôi Kiên\nCảm ơn bạn đã tiếp thêm caffeine cho Kiên!",
-  contact: "Kết nối với Kiên:\n• Zalo: 0913288691 (https://zalo.me/0913288691)\n• GitHub: https://github.com/Xuankiendev\n• Facebook: https://www.facebook.com/share/18ZGPAC3iU/\n• Email: Vxkiue@gmail.com"
+  donate: "Ủng hộ dự án 'Nuôi Kiên':\n• Ngân hàng / ZaloPay: 0345864723\n• Chủ tài khoản: VŨ XUÂN KIÊN\n• Nội dung: Đô nét cho dự án Nuôi Kiên\nCảm ơn bạn đã tiếp thêm caffeine cho Kiên!",
+  contact: "Kết nối với Kiên:\n• Zalo: 0913288691 (https://zalo.me/0913288691)\n• GitHub: https://github.com/Xuankiendev\n• TikTok: @vxkitvn (https://www.tiktok.com/@vxkitvn)\n• Email: Vxkiue@gmail.com"
 };

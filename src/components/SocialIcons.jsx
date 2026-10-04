@@ -12,10 +12,10 @@ export function GithubIcon({ className = "w-4 h-4" }) {
   );
 }
 
-export function FacebookIcon({ className = "w-4 h-4" }) {
+export function TikTokIcon({ className = "w-4 h-4" }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+      <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-2.901 2.883 2.896 2.896 0 0 1-2.896-2.883 2.896 2.896 0 0 1 2.896-2.883c.277 0 .54.043.791.121V9.458a6.326 6.326 0 0 0-.791-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.535a8.21 8.21 0 0 0 4.776 1.517V6.686z" />
     </svg>
   );
 }
@@ -28,6 +28,19 @@ export function ZaloIcon({ className = "w-4 h-4" }) {
         d="M15 15H33V20L21 28H33V33H15V28L27 20H15V15Z"
         fill="white"
       />
+    </svg>
+  );
+}
+
+export function ZaloPayIcon({ className = "w-4 h-4" }) {
+  return (
+    <svg className={className} viewBox="0 0 48 48" fill="none" aria-hidden="true">
+      <rect width="48" height="48" rx="12" fill="#00BE00" />
+      <path
+        d="M12 18H36V22L22 32H36V36H12V32L26 22H12V18Z"
+        fill="white"
+      />
+      <circle cx="36" cy="14" r="4" fill="#0068FF" />
     </svg>
   );
 }
