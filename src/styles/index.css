@@ -1,0 +1,90 @@
+@import "https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-deep: #07060b;
+  --heat: #fa5d19;
+  --pink: #ff2a85;
+  --cyan: #00f2fe;
+  --yellow: #ffe044;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg-deep);
+  color: #f1e9f8;
+  font-family: "Be Vietnam Pro", system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  line-height: 1.6;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Background Cyber Grid lines */
+.cyber-bg-grid {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at 50% 20%, #000 30%, transparent 80%);
+}
+
+/* Ambient Radial Glow */
+.ambient-glow {
+  position: fixed;
+  top: -150px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(250, 93, 25, 0.12) 0%, rgba(255, 42, 133, 0.06) 40%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(80px);
+}
+
+/* Clean Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #090611;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2b1f3d;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #fa5d19;
+}
+
+/* Selection Color */
+::selection {
+  background: #fa5d19;
+  color: #ffffff;
+}
+
+code, pre {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}

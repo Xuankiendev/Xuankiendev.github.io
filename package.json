@@ -1,0 +1,37 @@
+{
+  "name": "xuankiendev.github.io",
+  "version": "1.0.0",
+  "description": "My portfolio =)",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "cp template.html index.html && vite build && cp dist/index.html ./index.html && cp -r dist/assets . && cp -r dist/favicon.svg . && cp -r dist/avatar.jpg .",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xuankiendev/xuankiendev.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Xuankiendev/xuankiendev.github.io/issues"
+  },
+  "homepage": "https://github.com/Xuankiendev/xuankiendev.github.io#readme",
+  "dependencies": {
+    "canvas-confetti": "^1.9.4",
+    "lucide-react": "^1.51.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.1",
+    "autoprefixer": "^10.6.1",
+    "postcss": "^8.5.28",
+    "tailwindcss": "^3.4.19",
+    "vite": "^8.3.2"
+  }
+}
